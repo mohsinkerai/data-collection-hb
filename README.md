@@ -25,12 +25,12 @@ It is free to make changes and implementations and make the code more evolved.
 
 | #   | Username | Password |
 | --- |:--------:| --------:|
-| 1   | bruno    | 1234     |
-| 2   | naruto   | 1234     |
+| 1   | admin    | admin    |
+| 2   | user     | user     |
 
 ## Screenshot
 
-Login Page
+Login Pages
 
 ![Login Page](img/login.png "Login Page")
 
