@@ -1,4 +1,4 @@
-package com.mohsinkerai.adminlte;
+package com.mohsinkerai.adminlte.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

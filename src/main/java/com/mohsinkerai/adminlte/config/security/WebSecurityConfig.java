@@ -1,4 +1,4 @@
-package com.mohsinkerai.adminlte.security;
+package com.mohsinkerai.adminlte.config.security;
 
 import java.util.ArrayList;
 import java.util.List;

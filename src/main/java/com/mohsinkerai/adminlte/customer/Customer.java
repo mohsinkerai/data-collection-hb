@@ -1,19 +1,14 @@
-package com.mohsinkerai.adminlte.model;
+package com.mohsinkerai.adminlte.customer;
 
-import lombok.*;
-
+import com.mohsinkerai.adminlte.base.BaseEntity;
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.Date;
+import lombok.Data;
 
-@Entity
 @Data
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-public class Customer extends AbstractModel<Long> {
+@Entity
+public class Customer extends BaseEntity {
 
   @Column(nullable = false, length = 40)
   private String firstname;
@@ -21,10 +16,8 @@ public class Customer extends AbstractModel<Long> {
   @Column(nullable = false, length = 40)
   private String lastname;
 
-  @Column(nullable = false, unique = true)
   private String email;
 
   @Column(name = "added_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
-  private Date addedDate;
-
+  private Timestamp addedDate;
 }

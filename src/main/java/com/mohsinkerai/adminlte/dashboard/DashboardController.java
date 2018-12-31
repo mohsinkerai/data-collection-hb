@@ -1,4 +1,4 @@
-package com.mohsinkerai.adminlte.controller;
+package com.mohsinkerai.adminlte.dashboard;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
