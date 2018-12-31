@@ -3,6 +3,7 @@
 
 Application with SpringBoot and the AdminLTE 2 template to facilitate development.
 
+This project is forked from hendisantika/spring-boot-adminlte.git and modified local usage.
 
 characteristics
 ---
