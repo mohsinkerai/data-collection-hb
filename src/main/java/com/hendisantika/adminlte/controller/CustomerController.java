@@ -1,7 +1,7 @@
 package com.hendisantika.adminlte.controller;
 
-import com.hendisantika.adminlte.model.Customers;
-import com.hendisantika.adminlte.service.CustomersService;
+import com.hendisantika.adminlte.model.Customer;
+import com.hendisantika.adminlte.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,10 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CustomerController {
 
-  private CustomersService customerService;
+  private CustomerService customerService;
 
   @Autowired
-  public void setCustomerService(CustomersService customerService) {
+  public void setCustomerService(CustomerService customerService) {
     this.customerService = customerService;
   }
 
@@ -28,7 +28,7 @@ public class CustomerController {
 
   @RequestMapping(value = "/customers/{pageNumber}", method = RequestMethod.GET)
   public String list(@PathVariable Integer pageNumber, Model model) {
-    Page<Customers> page = customerService.getList(pageNumber);
+    Page<Customer> page = customerService.getList(pageNumber);
 
     int current = page.getNumber() + 1;
     int begin = Math.max(1, current - 5);
@@ -46,7 +46,7 @@ public class CustomerController {
   @RequestMapping("/customers/add")
   public String add(Model model) {
 
-    model.addAttribute("customer", new Customers());
+    model.addAttribute("customer", new Customer());
     return "customers/form";
 
   }
@@ -60,9 +60,9 @@ public class CustomerController {
   }
 
   @RequestMapping(value = "/customers/save", method = RequestMethod.POST)
-  public String save(Customers customer, final RedirectAttributes ra) {
+  public String save(Customer customer, final RedirectAttributes ra) {
 
-    Customers save = customerService.save(customer);
+    Customer save = customerService.save(customer);
     ra.addFlashAttribute("successFlash", "Cliente foi salvo com sucesso.");
     return "redirect:/customers";
 

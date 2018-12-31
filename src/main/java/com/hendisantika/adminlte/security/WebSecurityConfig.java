@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,6 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll();
   }
 
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     //Use Spring Boots User detailsMAnager
@@ -69,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
       authorities.add(new SimpleGrantedAuthority("ADMIN"));
       authorities.add(new SimpleGrantedAuthority("USER"));
-      User userDetails = new User("naruto", encoder.encode("1234"), authorities);
+      User userDetails = new User("bruno", encoder.encode("1234"), authorities);
       userDetailsService.createUser(userDetails);
     }
   }

@@ -2,13 +2,13 @@ package com.hendisantika.adminlte.service;
 
 
 import com.hendisantika.adminlte.model.AbstractModel;
+import java.io.Serializable;
+import java.util.Optional;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.io.Serializable;
 
 public abstract class AbstractService<T extends AbstractModel<Long>, Long extends Serializable> {
 
@@ -18,7 +18,7 @@ public abstract class AbstractService<T extends AbstractModel<Long>, Long extend
 
   public Page<T> getList(Integer pageNumber) {
     PageRequest pageRequest =
-        new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "id");
+      new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "id");
 
     return getRepository().findAll(pageRequest);
   }
@@ -28,8 +28,8 @@ public abstract class AbstractService<T extends AbstractModel<Long>, Long extend
   }
 
   public T get(Long id) {
-    T entity = getRepository().findOne(id);
-    return entity;
+    Optional<T> entity = Optional.ofNullable(getRepository().findOne(id));
+    return entity.orElseThrow(() -> new RuntimeException("Entity not found"));
   }
 
   public void delete(Long id) {
@@ -40,7 +40,7 @@ public abstract class AbstractService<T extends AbstractModel<Long>, Long extend
   }
 
   public void update(T entity) {
-    T getEntity = getRepository().findOne(entity.getId());
+    get(entity.getId());
     getRepository().save(entity);
   }
 }

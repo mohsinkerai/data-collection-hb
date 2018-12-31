@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Customers extends AbstractModel<Long> {
+public class Customer extends AbstractModel<Long> {
 
   @Column(nullable = false, length = 40)
   private String firstname;
