@@ -7,7 +7,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-public class SistemApplicationTests {
+public class MainApplicationTests {
 
 	@Test
 	public void contextLoads() {
