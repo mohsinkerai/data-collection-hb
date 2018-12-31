@@ -1,7 +1,7 @@
-package com.hendisantika.adminlte.service;
+package com.mohsinkerai.adminlte.service;
 
-import com.hendisantika.adminlte.model.Customer;
-import com.hendisantika.adminlte.repository.CustomerRepository;
+import com.mohsinkerai.adminlte.model.Customer;
+import com.mohsinkerai.adminlte.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;

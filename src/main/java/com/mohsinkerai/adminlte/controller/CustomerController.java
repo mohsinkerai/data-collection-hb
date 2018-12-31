@@ -1,7 +1,7 @@
-package com.hendisantika.adminlte.controller;
+package com.mohsinkerai.adminlte.controller;
 
-import com.hendisantika.adminlte.model.Customer;
-import com.hendisantika.adminlte.service.CustomerService;
+import com.mohsinkerai.adminlte.model.Customer;
+import com.mohsinkerai.adminlte.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;

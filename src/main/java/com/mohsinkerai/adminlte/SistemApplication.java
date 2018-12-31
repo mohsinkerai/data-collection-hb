@@ -1,4 +1,4 @@
-package com.hendisantika.adminlte;
+package com.mohsinkerai.adminlte;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

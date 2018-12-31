@@ -1,7 +1,7 @@
-package com.hendisantika.adminlte.service;
+package com.mohsinkerai.adminlte.service;
 
 
-import com.hendisantika.adminlte.model.AbstractModel;
+import com.mohsinkerai.adminlte.model.AbstractModel;
 import java.io.Serializable;
 import java.util.Optional;
 import org.springframework.dao.EmptyResultDataAccessException;
