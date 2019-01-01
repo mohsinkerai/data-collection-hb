@@ -24,8 +24,6 @@ public abstract class BaseController<E extends BaseEntity> {
 
   protected abstract String viewPath();
 
-  protected abstract String attributeName();
-
   protected abstract E getEmptyObject();
 
   /**
@@ -63,15 +61,19 @@ public abstract class BaseController<E extends BaseEntity> {
 
   @RequestMapping("add")
   public String add(Model model) {
+    model.addAttribute("urlPath", urlPath());
+
     model.addAllAttributes(getAttributes());
-    model.addAttribute(attributeName(), getEmptyObject());
+    model.addAttribute("data", getEmptyObject());
     return viewPath() + "/form";
   }
 
   @RequestMapping("edit/{id}")
   public String edit(@PathVariable Long id, Model model) {
+    model.addAttribute("urlPath", urlPath());
+
     model.addAllAttributes(getAttributes());
-    model.addAttribute(attributeName(), baseService.findOne(id));
+    model.addAttribute("data", baseService.findOne(id));
     return viewPath() + "/form";
   }
 
@@ -79,7 +81,7 @@ public abstract class BaseController<E extends BaseEntity> {
   public String save(E e, final RedirectAttributes ra) {
 
     E save = baseService.save(e);
-    ra.addFlashAttribute("successFlash", attributeName() + " was successfully saved.");
+    ra.addFlashAttribute("successFlash", "Data was successfully saved.");
     return "redirect:/" + urlPath();
   }
 
