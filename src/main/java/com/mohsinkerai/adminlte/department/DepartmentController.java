@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.mohsinkerai.adminlte.base.BaseController;
 import com.mohsinkerai.adminlte.base.BaseService;
 import java.util.Map;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(DepartmentController.URL_PATH)
 public class DepartmentController extends BaseController<Department> {
 
-  public static final String SINGLE_NAME = "department";
   public static final String URL_PATH = "departments";
 
   protected DepartmentController(
@@ -27,11 +27,6 @@ public class DepartmentController extends BaseController<Department> {
   @Override
   protected String viewPath() {
     return URL_PATH;
-  }
-
-  @Override
-  protected String attributeName() {
-    return SINGLE_NAME;
   }
 
   @Override

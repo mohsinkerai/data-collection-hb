@@ -16,7 +16,7 @@
       <ul class="treeview-menu">
         <li><a href="/customers"><i class="fa fa-circle-o"></i> Customers</a></li>
       </ul>
-      <ul class="treeview-menu">
+      <ul class="treeview-menu" sec:authorize="hasAuthority('ADMIN')">
         <li><a href="/departments"><i class="fa fa-circle-o"></i> Departments</a></li>
       </ul>
     </li>
