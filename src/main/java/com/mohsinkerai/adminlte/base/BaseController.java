@@ -1,5 +1,6 @@
 package com.mohsinkerai.adminlte.base;
 
+import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,6 +28,14 @@ public abstract class BaseController<E extends BaseEntity> {
 
   protected abstract E getEmptyObject();
 
+  /**
+   * Return Static Values for Lookup Purpose - Such as List of Departments for Employee Controller
+   * List of Jamatkhana, etc.
+   *
+   * It is needed for individual record (add/edit)
+   */
+  protected abstract Map<String, Object> getAttributes();
+
   @GetMapping("")
   public String index() {
     return "redirect:/" + urlPath() + "/1";
@@ -52,13 +61,14 @@ public abstract class BaseController<E extends BaseEntity> {
 
   @RequestMapping("add")
   public String add(Model model) {
+    model.addAllAttributes(getAttributes());
     model.addAttribute(attributeName(), getEmptyObject());
     return viewPath() + "/form";
   }
 
   @RequestMapping("edit/{id}")
   public String edit(@PathVariable Long id, Model model) {
-
+    model.addAllAttributes(getAttributes());
     model.addAttribute(attributeName(), baseService.findOne(id));
     return viewPath() + "/form";
   }

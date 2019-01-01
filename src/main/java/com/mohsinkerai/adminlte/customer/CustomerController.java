@@ -1,7 +1,9 @@
 package com.mohsinkerai.adminlte.customer;
 
+import com.google.common.collect.Maps;
 import com.mohsinkerai.adminlte.base.BaseController;
 import com.mohsinkerai.adminlte.base.BaseService;
+import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,5 +37,10 @@ public class CustomerController extends BaseController<Customer> {
   @Override
   protected Customer getEmptyObject() {
     return new Customer();
+  }
+
+  @Override
+  protected Map<String, Object> getAttributes() {
+    return Maps.newHashMap();
   }
 }
