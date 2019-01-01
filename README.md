@@ -13,6 +13,8 @@ characteristics
 * Thymeleaf para view;
 * Mysql Bank or others;
 * Basic customer crud;
+* Basic department crud;
+* Security with roles;
 
 TODO
 ---
@@ -21,7 +23,7 @@ TODO
 * Model of Dialog;
 * Template for sending e-mail with template;
 * Many to Many Relationship via Controller
-* Security with Roles
+
 
 It is free to make changes and implementations and make the code more evolved.
 
