@@ -20,6 +20,8 @@ TODO
 * Search in the listing;
 * Model of Dialog;
 * Template for sending e-mail with template;
+* Many to Many Relationship via Controller
+* Security with Roles
 
 It is free to make changes and implementations and make the code more evolved.
 
@@ -41,4 +43,5 @@ Dashboard Page
 List Page
 
 ![List Page](img/list.png "List Page")
+
 
