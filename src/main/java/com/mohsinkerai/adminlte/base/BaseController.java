@@ -51,6 +51,8 @@ public abstract class BaseController<E extends BaseEntity> {
     int begin = Math.max(1, current - PAGE_SIZE);
     int end = Math.min(begin + 10, page.getTotalPages());
 
+    model.addAttribute("urlPath", urlPath());
+
     model.addAttribute("list", page);
     model.addAttribute("beginIndex", begin);
     model.addAttribute("endIndex", end);
