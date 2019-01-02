@@ -1,10 +1,12 @@
 package com.mohsinkerai.adminlte.customer;
 
-import com.google.common.collect.Maps;
+import com.google.common.collect.ImmutableMap;
 import com.mohsinkerai.adminlte.base.BaseController;
 import com.mohsinkerai.adminlte.base.BaseService;
+import com.mohsinkerai.adminlte.department.Department;
+import com.mohsinkerai.adminlte.department.DepartmentService;
+import java.util.List;
 import java.util.Map;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,9 +16,13 @@ public class CustomerController extends BaseController<Customer> {
 
   public static final String URL_PATH = "customers";
 
+  private final DepartmentService departmentService;
+
   protected CustomerController(
-    BaseService<Customer> baseService) {
+    BaseService<Customer> baseService,
+    DepartmentService departmentService) {
     super(baseService);
+    this.departmentService = departmentService;
   }
 
   @Override
@@ -36,6 +42,7 @@ public class CustomerController extends BaseController<Customer> {
 
   @Override
   protected Map<String, Object> getAttributes() {
-    return Maps.newHashMap();
+    List<Department> departments = departmentService.findAll();
+    return ImmutableMap.of("departments", departments);
   }
 }

@@ -30,15 +30,32 @@
           <label for="Firstname">First Name</label>
           <input type="text" required="true" class="form-control" th:field="*{firstname}"
                  id="firstname"/>
+          <p class="text-danger" th:if="${#fields.hasErrors('firstname')}"
+             th:errors="*{firstname}"></p>
         </div>
         <div class="form-group">
           <label for="Lastname">Lastname</label>
           <input type="text" required="true" class="form-control" th:field="*{lastname}"
                  id="lastname"/>
+          <p class="text-danger" th:if="${#fields.hasErrors('lastname')}"
+             th:errors="*{lastname}"></p>
         </div>
         <div class="form-group">
           <label for="email">E-mail</label>
           <input type="email" required="true" class="form-control" th:field="*{email}" id="email"/>
+          <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="department">Department</label>
+          <select th:field="*{department}" id="department" class="form-control">
+            <option th:each="dept : ${departments}"
+                    th:value="${dept.id}"
+                    th:text="${dept.name}">Wireframe
+            </option>
+          </select>
+          <p class="text-danger" th:if="${#fields.hasErrors('department')}"
+             th:errors="*{department}"></p>
         </div>
       </div>
       <div class="box-footer">
