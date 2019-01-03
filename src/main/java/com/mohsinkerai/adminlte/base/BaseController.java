@@ -4,7 +4,6 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,8 +47,9 @@ public abstract class BaseController<E extends BaseEntity> {
     Page<E> page = baseService.findAll(pageRequest);
 
     int current = page.getNumber() + 1;
+    int totalPages = page.getTotalPages();
     int begin = Math.max(1, current - PAGE_SIZE);
-    int end = Math.min(begin + 10, page.getTotalPages());
+    int end = Math.min(begin + PAGE_SIZE, totalPages == 0 ? 1 : totalPages);
 
     model.addAttribute("urlPath", urlPath());
 
@@ -81,7 +81,7 @@ public abstract class BaseController<E extends BaseEntity> {
 
   @RequestMapping(value = "save", method = RequestMethod.POST)
   public String save(E e, Model model, final RedirectAttributes ra, BindingResult bindingResult) {
-    if(bindingResult.hasErrors()) {
+    if (bindingResult.hasErrors()) {
 
       model.addAttribute("data", e);
       model.addAttribute("org.springframework.validation.BindingResult.data", bindingResult);
