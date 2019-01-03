@@ -15,6 +15,7 @@ characteristics
 * Basic customer crud;
 * Basic department crud;
 * Security with roles;
+* Many to many relationship via controller;
 
 TODO
 ---
@@ -22,8 +23,8 @@ TODO
 * Search in the listing;
 * Model of Dialog;
 * Template for sending e-mail with template;
-* Many to many relationship via controller;
 * Install frontend dependencies/libraries via bower/npm or some package manager;
+* Add Error Handling
 
 
 It is free to make changes and implementations and make the code more evolved.

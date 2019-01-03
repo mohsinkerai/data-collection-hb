@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_adminlte2?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/spring_adminlte?createDatabaseIfNotExist=true
     username: root
     password: 123
   jpa:
@@ -13,6 +13,11 @@ spring:
     cache: false
     check-template-location: true
     prefix: file:./src/main/resources/templates/
-  session.store-type: none
+#  session.store-type: none
+  session:
+    store-type: jdbc
+    jdbc:
+      initializer:
+        enabled: true
 liquibase:
   change-log: classpath:db/liquibase-changelog.xml

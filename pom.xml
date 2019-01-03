@@ -54,6 +54,12 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
+    <!--spring-session jdbc-->
+    <dependency>
+      <groupId>org.springframework.session</groupId>
+      <artifactId>spring-session-jdbc</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
