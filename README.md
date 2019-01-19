@@ -22,6 +22,8 @@ TODO
 ---
 
 * Search in the listing;
+* Active Highlight in UI Side Bar w.r.t URL
+* Base/Default User information should be kept in liquibase instead of if block
 * Model of Dialog;
 * Template for sending e-mail with template;
 * Install frontend dependencies/libraries via bower/npm or some package manager;
