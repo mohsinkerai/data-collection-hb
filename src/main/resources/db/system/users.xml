@@ -38,4 +38,18 @@
       <column name="username" />
     </createIndex>
   </changeSet>
+  <changeSet id="users-02" author="mohsin.kerai">
+    <insert tableName="users">
+      <column name="username" value="admin"/>
+      <column name="password" value="$2a$10$yBKOgfPBnGEMKJW4jrANJurplYRnjCQjyoT8S4fbNkNu6GO254Y3a"/>
+      <column name="enabled" valueBoolean="true"/>
+    </insert>
+  </changeSet>
+  <changeSet id="users-04" author="mohsin.kerai">
+    <insert tableName="users">
+      <column name="username" value="user"/>
+      <column name="password" value="$2a$10$v9xaftczYUk0bfhdCGxhW.0cDFHG2n5yAMbnUNrvMtkMQwL4CNMHq"/>
+      <column name="enabled" valueBoolean="true"/>
+    </insert>
+  </changeSet>
 </databaseChangeLog>

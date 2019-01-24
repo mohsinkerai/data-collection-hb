@@ -1,0 +1,21 @@
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet id="user-authorities-01" author="mohsin.kerai">
+    <insert tableName="authorities">
+      <column name="username" value="admin"/>
+      <column name="authority" value="ADMIN"/>
+    </insert>
+    <insert tableName="authorities">
+      <column name="username" value="admin"/>
+      <column name="authority" value="USER"/>
+    </insert>
+  </changeSet>
+  <changeSet id="user-authorities-02" author="mohsin.kerai">
+    <insert tableName="authorities">
+      <column name="username" value="user"/>
+      <column name="authority" value="USER"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

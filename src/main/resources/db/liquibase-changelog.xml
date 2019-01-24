@@ -7,7 +7,8 @@
   <!--SYSTEM-->
   <include file="system/users.xml" relativeToChangelogFile="true"/>
   <include file="system/authorities.xml" relativeToChangelogFile="true"/>
-  <include file="system/session.xml" relativeToChangelogFile="true"/>
+  <include file="system/user-authorities-data.xml" relativeToChangelogFile="true"/>
+  <!--<include file="system/session.xml" relativeToChangelogFile="true"/>-->
 
   <!--BUSINESS-->
   <include file="business/department.xml" relativeToChangelogFile="true"/>
