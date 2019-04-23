@@ -1,5 +1,6 @@
 package com.mohsinkerai.adminlte.base;
 
+import java.io.Serializable;
 import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-public abstract class BaseController<E extends BaseEntity> {
+public abstract class BaseController<E extends BaseEntity, I extends Serializable> {
 
   private static final int PAGE_SIZE = 10;
-  protected final BaseService<E> baseService;
+  protected final BaseService<E, I> baseService;
 
-  protected BaseController(BaseService<E> baseService) {
+  protected BaseController(BaseService<E, I> baseService) {
     this.baseService = baseService;
   }
 
@@ -71,7 +72,7 @@ public abstract class BaseController<E extends BaseEntity> {
   }
 
   @RequestMapping("edit/{id}")
-  public String edit(@PathVariable Long id, Model model) {
+  public String edit(@PathVariable I id, Model model) {
     model.addAttribute("urlPath", urlPath());
 
     model.addAllAttributes(getAttributes());
@@ -94,7 +95,7 @@ public abstract class BaseController<E extends BaseEntity> {
   }
 
   @RequestMapping("delete/{id}")
-  public String delete(@PathVariable Long id) {
+  public String delete(@PathVariable I id) {
 
     baseService.delete(id);
     return "redirect:/" + urlPath();

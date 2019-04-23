@@ -1,22 +1,19 @@
 package com.mohsinkerai.adminlte.config.security;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.mohsinkerai.adminlte.users.MyUserService;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -52,19 +49,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   @Autowired
-  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    //Use Spring Boots User detailsMAnager
-    JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
+  public void configureGlobal(AuthenticationManagerBuilder auth,
+    UserDetailsManager userDetailsManager,
+    PasswordEncoder passwordEncoder) throws Exception {
+    auth.userDetailsService(userDetailsManager).passwordEncoder(passwordEncoder);
+//    auth.jdbcAuthentication().dataSource(datasource);
 
-    //Set our Datasource to use the one defined in application.properties
-    userDetailsService.setDataSource(datasource);
-
-    //Create BCryptPassword encoder
-    PasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    //add components
-    auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-    auth.jdbcAuthentication().dataSource(datasource);
+    //TODO: Check whether UserDetailManager By Default Contains AuthenticationManager or We need to Add it
   }
 
+  @Autowired
+  public void configureUserDetailsManager(MyUserService myUserService, AuthenticationManager authenticationManager) {
+    myUserService.setAuthenticationManager(authenticationManager);
+  }
 }

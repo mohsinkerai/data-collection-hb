@@ -1,27 +1,27 @@
 package com.mohsinkerai.adminlte.customer;
 
 import com.google.common.collect.ImmutableMap;
-import com.mohsinkerai.adminlte.base.BaseController;
-import com.mohsinkerai.adminlte.base.BaseService;
+import com.mohsinkerai.adminlte.base.SimpleBaseController;
+import com.mohsinkerai.adminlte.base.SimpleBaseService;
 import com.mohsinkerai.adminlte.department.Department;
-import com.mohsinkerai.adminlte.department.DepartmentService;
+import com.mohsinkerai.adminlte.department.DepartmentServiceSimple;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(CustomerController.URL_PATH)
-public class CustomerController extends BaseController<Customer> {
+@RequestMapping(CustomerControllerSimple.URL_PATH)
+public class CustomerControllerSimple extends SimpleBaseController<Customer> {
 
   public static final String URL_PATH = "customers";
 
-  private final DepartmentService departmentService;
+  private final DepartmentServiceSimple departmentService;
 
-  protected CustomerController(
-    BaseService<Customer> baseService,
-    DepartmentService departmentService) {
-    super(baseService);
+  protected CustomerControllerSimple(
+    SimpleBaseService<Customer> simpleBaseService,
+    DepartmentServiceSimple departmentService) {
+    super(simpleBaseService);
     this.departmentService = departmentService;
   }
 

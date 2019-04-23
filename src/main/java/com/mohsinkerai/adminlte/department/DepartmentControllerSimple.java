@@ -1,22 +1,21 @@
 package com.mohsinkerai.adminlte.department;
 
 import com.google.common.collect.Maps;
-import com.mohsinkerai.adminlte.base.BaseController;
-import com.mohsinkerai.adminlte.base.BaseService;
+import com.mohsinkerai.adminlte.base.SimpleBaseController;
+import com.mohsinkerai.adminlte.base.SimpleBaseService;
 import java.util.Map;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(DepartmentController.URL_PATH)
-public class DepartmentController extends BaseController<Department> {
+@RequestMapping(DepartmentControllerSimple.URL_PATH)
+public class DepartmentControllerSimple extends SimpleBaseController<Department> {
 
   public static final String URL_PATH = "departments";
 
-  protected DepartmentController(
-    BaseService<Department> baseService) {
-    super(baseService);
+  protected DepartmentControllerSimple(
+    SimpleBaseService<Department> simpleBaseService) {
+    super(simpleBaseService);
   }
 
   @Override

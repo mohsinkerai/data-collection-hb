@@ -1,40 +1,40 @@
 package com.mohsinkerai.adminlte.base;
 
 import com.google.common.collect.Lists;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public abstract class BaseService<E extends BaseEntity> {
+public abstract class BaseService<E extends BaseEntity, I extends Serializable> {
 
-  protected final BaseRepository<E> baseRepository;
+  protected final BaseRepository<E, I> simpleBaseRepository;
 
-  protected BaseService(BaseRepository<E> baseRepository) {
-    this.baseRepository = baseRepository;
+  protected BaseService(BaseRepository<E, I> simpleBaseRepository) {
+    this.simpleBaseRepository = simpleBaseRepository;
   }
-
   public List<E> findAll() {
-    return Lists.newArrayList(baseRepository.findAll());
+    return Lists.newArrayList(simpleBaseRepository.findAll());
   }
 
   public Page<E> findAll(Pageable pageable) {
-    return baseRepository.findAll(pageable);
+    return simpleBaseRepository.findAll(pageable);
   }
 
-  public Optional<E> findOne(Long id) {
-    return Optional.ofNullable(baseRepository.findOne(id));
+  public Optional<E> findOne(I id) {
+    return Optional.ofNullable(simpleBaseRepository.findOne(id));
   }
 
   public E save(E e) {
-    return baseRepository.save(e);
+    return simpleBaseRepository.save(e);
   }
 
   public void delete(E e) {
-    baseRepository.delete(e);
+    simpleBaseRepository.delete(e);
   }
 
-  public void delete(Long id) {
-    baseRepository.delete(id);
+  public void delete(I id) {
+    simpleBaseRepository.delete(id);
   }
 }

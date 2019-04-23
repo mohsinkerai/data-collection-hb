@@ -2,19 +2,29 @@
   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-  <changeSet id="users-01" author="mohsin.kerai">
+  <changeSet id="my-users-01" author="mohsin.kerai">
     <createTable remarks="Table to Store Users Information for System Security"
-      tableName="users">
+      tableName="my_user">
       <column autoIncrement="true" name="id" type="bigint">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
+      <column name="version" type="bigint" defaultValue="1"></column>
       <column name="username" type="varchar(255)">
         <constraints nullable="false" unique="true"/>
       </column>
       <column name="password" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="enabled" type="BOOLEAN">
+      <column name="enabled" type="BOOLEAN" defaultValueBoolean="true">
+        <constraints nullable="false"/>
+      </column>
+      <column name="locked" type="BOOLEAN" defaultValueBoolean="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="credentials_expired" type="BOOLEAN" defaultValueBoolean="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="account_expired" type="BOOLEAN" defaultValueBoolean="false">
         <constraints nullable="false"/>
       </column>
 
@@ -33,20 +43,22 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet id="users-03" author="mohsin.kerai">
-    <createIndex tableName="users" indexName="users_username_index">
+  <changeSet id="my-users-02" author="mohsin.kerai">
+    <createIndex tableName="my_user" indexName="users_username_index">
       <column name="username" />
     </createIndex>
   </changeSet>
-  <changeSet id="users-02" author="mohsin.kerai">
-    <insert tableName="users">
+  <changeSet id="my-users-03" author="mohsin.kerai">
+    <insert tableName="my_user">
+      <column name="id" value="1" />
       <column name="username" value="admin"/>
       <column name="password" value="$2a$10$yBKOgfPBnGEMKJW4jrANJurplYRnjCQjyoT8S4fbNkNu6GO254Y3a"/>
       <column name="enabled" valueBoolean="true"/>
     </insert>
   </changeSet>
-  <changeSet id="users-04" author="mohsin.kerai">
-    <insert tableName="users">
+  <changeSet id="my-users-04" author="mohsin.kerai">
+    <insert tableName="my_user">
+      <column name="id" value="2" />
       <column name="username" value="user"/>
       <column name="password" value="$2a$10$v9xaftczYUk0bfhdCGxhW.0cDFHG2n5yAMbnUNrvMtkMQwL4CNMHq"/>
       <column name="enabled" valueBoolean="true"/>
