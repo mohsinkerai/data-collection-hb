@@ -5,12 +5,15 @@ import com.mohsinkerai.adminlte.users.authority.MyAuthority;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +21,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 public class MyUser extends BaseEntity implements UserDetails {
 
@@ -31,7 +36,7 @@ public class MyUser extends BaseEntity implements UserDetails {
   private Boolean credentialsExpired = false;
   private Boolean accountExpired = false;
 
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
     name = "my_user_authority",
     joinColumns = @JoinColumn(name = "my_authority_id"),

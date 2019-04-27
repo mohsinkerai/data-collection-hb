@@ -1,11 +1,15 @@
 package com.mohsinkerai.adminlte.users;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mohsinkerai.adminlte.base.SimpleBaseController;
 import com.mohsinkerai.adminlte.base.SimpleBaseService;
+import com.mohsinkerai.adminlte.users.authority.MyAuthority;
 import java.util.Map;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -13,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyUserController extends SimpleBaseController<MyUser> {
 
   public static final String URL_PATH = "users";
+  private final MyUserService myUserService;
 
   protected MyUserController(
-    SimpleBaseService<MyUser> baseService) {
-    super(baseService);
+    MyUserService myUserService) {
+    super(myUserService);
+    this.myUserService = myUserService;
   }
 
   @Override
@@ -42,5 +48,11 @@ public class MyUserController extends SimpleBaseController<MyUser> {
   @Override
   protected Map<String, Object> getAttributes() {
     return ImmutableMap.of();
+  }
+
+  @GetMapping("hello")
+  public ResponseEntity<Void> hello() {
+    myUserService.save(new MyUser("saher", "321", true, false, false, false, ImmutableList.of(new MyAuthority("BABY"))));
+    return ResponseEntity.ok().build();
   }
 }

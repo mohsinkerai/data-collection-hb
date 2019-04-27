@@ -58,8 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //TODO: Check whether UserDetailManager By Default Contains AuthenticationManager or We need to Add it
   }
 
-  @Autowired
-  public void configureUserDetailsManager(MyUserService myUserService, AuthenticationManager authenticationManager) {
-    myUserService.setAuthenticationManager(authenticationManager);
-  }
+//  @Autowired
+//  public void configureUserDetailsManager(MyUserService myUserService, AuthenticationManager authenticationManager) {
+//    myUserService.setAuthenticationManager(authenticationManager);
+//  }
 }
