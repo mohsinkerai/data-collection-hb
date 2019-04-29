@@ -2,19 +2,25 @@ package com.mohsinkerai.adminlte.users;
 
 import com.mohsinkerai.adminlte.base.BaseEntity;
 import com.mohsinkerai.adminlte.users.authority.MyAuthority;
+import com.mohsinkerai.adminlte.users.authority.MyAuthoritySwitchDto;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +30,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Data
 public class MyUser extends BaseEntity implements UserDetails {
 
   private static final long serialVersionUID = -3945671920756923566L;
@@ -36,7 +43,7 @@ public class MyUser extends BaseEntity implements UserDetails {
   private Boolean credentialsExpired = false;
   private Boolean accountExpired = false;
 
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(
     name = "my_user_authority",
     joinColumns = @JoinColumn(name = "my_authority_id"),
@@ -44,9 +51,13 @@ public class MyUser extends BaseEntity implements UserDetails {
   )
   private List<MyAuthority> myAuthorities;
 
+  @Transient
+  @Getter
+  private List<MyAuthoritySwitchDto> authoritySwitchDtos;
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    return myAuthorities;
   }
 
   @Override
@@ -88,7 +99,7 @@ public class MyUser extends BaseEntity implements UserDetails {
       .append("Credentials Expired", credentialsExpired)
       .append("Account Locked", locked)
       .append("Account Expired", accountExpired)
-      .append("Authorities", myAuthorities)
+//      .append("Authorities", myAuthorities)
       .toString();
   }
 

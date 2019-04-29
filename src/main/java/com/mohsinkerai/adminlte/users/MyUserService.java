@@ -1,7 +1,15 @@
 package com.mohsinkerai.adminlte.users;
 
 import com.mohsinkerai.adminlte.base.SimpleBaseService;
+import com.mohsinkerai.adminlte.users.authority.MyAuthority;
+import com.mohsinkerai.adminlte.users.authority.MyAuthorityService;
+import com.mohsinkerai.adminlte.users.authority.MyAuthoritySwitchDto;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import javax.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,22 +22,33 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Service
 public class MyUserService extends SimpleBaseService<MyUser> implements UserDetailsService,
   UserDetailsManager {
 
+  private final MyAuthorityService myAuthorityService;
   private final MyUserRepository myUserRepository;
   private final PasswordEncoder passwordEncoder;
   private AuthenticationManager authenticationManager;
 
   public MyUserService(
+    MyAuthorityService myAuthorityService,
     MyUserRepository myUserRepository,
     PasswordEncoder passwordEncoder) {
     super(myUserRepository);
+    this.myAuthorityService = myAuthorityService;
     this.myUserRepository = myUserRepository;
     this.passwordEncoder = passwordEncoder;
+  }
+
+  @Override
+  @Transactional
+  public Optional<MyUser> findOne(Long id) {
+    return super.findOne(id).map(this::populateAuthoritySwitch);
   }
 
   @Override
@@ -44,7 +63,14 @@ public class MyUserService extends SimpleBaseService<MyUser> implements UserDeta
 
   @Override
   public MyUser save(MyUser myUser) {
-    myUser.setPassword(passwordEncoder.encode(myUser.getPassword()));
+    if (!StringUtils.isEmpty(myUser.getPassword())) {
+      myUser.setPassword(passwordEncoder.encode(myUser.getPassword()));
+    } else if (myUser.getId() != null) {
+      MyUser user = findOne(myUser.getId()).get();
+      myUser.setPassword(user.getPassword());
+    } else {
+      throw new ValidationException("Empty Password");
+    }
     return super.save(myUser);
   }
 
@@ -88,8 +114,7 @@ public class MyUserService extends SimpleBaseService<MyUser> implements UserDeta
 
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
         username, oldPassword));
-    }
-    else {
+    } else {
       log.debug("No authentication manager set. Password won't be re-checked.");
     }
 
@@ -120,6 +145,11 @@ public class MyUserService extends SimpleBaseService<MyUser> implements UserDeta
     save(myUser);
   }
 
+  public void setAuthenticationManager(
+    AuthenticationManager authenticationManager) {
+    this.authenticationManager = authenticationManager;
+  }
+
   protected Authentication createNewAuthentication(Authentication currentAuth, MyUser myUser) {
     UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(
       myUser.getUsername(), null, myUser.getAuthorities());
@@ -128,8 +158,19 @@ public class MyUserService extends SimpleBaseService<MyUser> implements UserDeta
     return newAuthentication;
   }
 
-  public void setAuthenticationManager(
-    AuthenticationManager authenticationManager) {
-    this.authenticationManager = authenticationManager;
+  private MyUser populateAuthoritySwitch(MyUser myUser) {
+    Map<String, MyAuthority> authorityMap = myUser
+      .getAuthorities()
+      .stream()
+      .map(MyAuthority.class::cast)
+      .collect(Collectors.toMap(MyAuthority::getAuthority, Function.identity()));
+
+    List<MyAuthoritySwitchDto> authoritySwitchDtos = myAuthorityService.findAll().stream()
+      .map(myAuthority -> new MyAuthoritySwitchDto(myAuthority,
+        authorityMap.containsKey(myAuthority.getName())))
+      .collect(Collectors.toList());
+
+    myUser.setAuthoritySwitchDtos(authoritySwitchDtos);
+    return myUser;
   }
 }

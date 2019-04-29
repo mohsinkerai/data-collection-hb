@@ -26,11 +26,6 @@ public class MyUserController extends SimpleBaseController<MyUser> {
   }
 
   @Override
-  public String edit(Long id, Model model) {
-    throw new RuntimeException("Updates are not allowed");
-  }
-
-  @Override
   protected String urlPath() {
     return URL_PATH;
   }
@@ -48,11 +43,5 @@ public class MyUserController extends SimpleBaseController<MyUser> {
   @Override
   protected Map<String, Object> getAttributes() {
     return ImmutableMap.of();
-  }
-
-  @GetMapping("hello")
-  public ResponseEntity<Void> hello() {
-    myUserService.save(new MyUser("saher", "321", true, false, false, false, ImmutableList.of(new MyAuthority("BABY"))));
-    return ResponseEntity.ok().build();
   }
 }

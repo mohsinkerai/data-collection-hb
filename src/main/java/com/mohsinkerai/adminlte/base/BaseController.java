@@ -76,7 +76,7 @@ public abstract class BaseController<E extends BaseEntity, I extends Serializabl
     model.addAttribute("urlPath", urlPath());
 
     model.addAllAttributes(getAttributes());
-    model.addAttribute("data", baseService.findOne(id));
+    model.addAttribute("data", baseService.findOne(id).get());
     return viewPath() + "/form";
   }
 
