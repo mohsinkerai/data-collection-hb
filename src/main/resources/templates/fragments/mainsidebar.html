@@ -7,7 +7,7 @@
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
       </a>
     </li>
-    <li class="treeview">
+    <li class="treeview" th:classappend="${#httpServletRequest.requestURI.startsWith('/customers')? 'active':''}">
       <a href="#">
         <i class="fa fa-folder"></i>
         <span>Registration</span>
@@ -19,6 +19,13 @@
       <ul class="treeview-menu" sec:authorize="hasAuthority('ADMIN')">
         <li><a href="/departments"><i class="fa fa-circle-o"></i> Departments</a></li>
       </ul>
+    </li>
+    <li class="treeview"
+        th:classappend="${#httpServletRequest.requestURI.startsWith('/users')? 'active':''}"
+        sec:authorize="hasAuthority('ADMIN')">
+      <a href="/users">
+        <i class="fa fa-user" ></i> <span>Users Management</span>
+      </a>
     </li>
   </ul>
 </section>

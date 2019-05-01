@@ -1,17 +1,16 @@
 package com.mohsinkerai.adminlte.users;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mohsinkerai.adminlte.base.SimpleBaseController;
-import com.mohsinkerai.adminlte.base.SimpleBaseService;
-import com.mohsinkerai.adminlte.users.authority.MyAuthority;
 import java.util.Map;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Slf4j
 @Controller
 @RequestMapping(MyUserController.URL_PATH)
 public class MyUserController extends SimpleBaseController<MyUser> {
@@ -43,5 +42,11 @@ public class MyUserController extends SimpleBaseController<MyUser> {
   @Override
   protected Map<String, Object> getAttributes() {
     return ImmutableMap.of();
+  }
+
+  @GetMapping("hello")
+  public void hello() {
+    log.info("Hello World");
+    log.info("Role {}", SecurityContextHolder.getContext().getAuthentication().getAuthorities());
   }
 }
