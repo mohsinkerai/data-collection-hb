@@ -2,8 +2,8 @@
 <section class="sidebar">
   <!-- sidebar menu: : style can be found in sidebar.less -->
   <ul class="sidebar-menu">
-    <li class="active treeview">
-      <a href="#">
+    <li class="treeview" th:classappend="${#httpServletRequest.requestURI.startsWith('/dashboard')? 'active':''}">
+      <a href="/">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
       </a>
     </li>
@@ -14,10 +14,8 @@
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li><a href="/customers"><i class="fa fa-circle-o"></i> Customers</a></li>
-      </ul>
-      <ul class="treeview-menu" sec:authorize="hasAuthority('ADMIN')">
-        <li><a href="/departments"><i class="fa fa-circle-o"></i> Departments</a></li>
+        <li th:classappend="${#httpServletRequest.requestURI.startsWith('/customers')? 'active':''}"><a href="/customers"><i class="fa fa-circle-o"></i> Customers</a></li>
+        <li><a href="/departments" sec:authorize="hasAuthority('ADMIN')"><i class="fa fa-circle-o"></i> Departments</a></li>
       </ul>
     </li>
     <li class="treeview"

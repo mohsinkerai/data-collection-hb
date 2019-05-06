@@ -8,6 +8,11 @@ public class DashboardController {
 
   @RequestMapping("/")
   public String index() {
+    return "redirect:/dashboard";
+  }
+
+  @RequestMapping("/dashboard")
+  public String dashboard() {
     return "dashboard/index";
   }
 }

@@ -25,18 +25,30 @@
   </properties>
 
   <dependencies>
+
+    <!--Database Dependencies-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-mail</artifactId>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
+      <groupId>com.vladmihalcea</groupId>
+      <artifactId>hibernate-types-52</artifactId>
+      <version>2.4.2</version>
     </dependency>
+    <dependency>
+      <groupId>io.github.jpenren</groupId>
+      <artifactId>thymeleaf-spring-data-dialect</artifactId>
+      <version>3.3.1</version>
+    </dependency>
+    <!--Database Dependencies-->
+
+    <!--UI & Web Dependencies-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -46,38 +58,29 @@
       <artifactId>thymeleaf-extras-springsecurity4</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.jpenren</groupId>
-      <artifactId>thymeleaf-spring-data-dialect</artifactId>
-      <version>3.3.1</version>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+    <!--UI & Web Dependencies-->
 
-    <!--spring-session jdbc-->
+    <!--Spring Security-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <!--Spring Security-->
+
+    <!--Spring Session Dependencies-->
     <dependency>
       <groupId>org.springframework.session</groupId>
       <artifactId>spring-session-jdbc</artifactId>
     </dependency>
 
+    <!--Helpers-->
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>24.0-jre</version>
-    </dependency>
-
-    <!--For Json Types-->
-    <dependency>
-      <groupId>com.vladmihalcea</groupId>
-      <artifactId>hibernate-types-52</artifactId>
-      <version>2.4.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.liquibase</groupId>
@@ -87,11 +90,15 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
     </dependency>
+    <!--Helpers-->
+
+    <!--Testing Dependencies-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <!--Testing Dependencies-->
   </dependencies>
 
   <build>
