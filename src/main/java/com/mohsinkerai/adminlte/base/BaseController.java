@@ -81,9 +81,8 @@ public abstract class BaseController<E extends BaseEntity, I extends Serializabl
   }
 
   @RequestMapping(value = "save", method = RequestMethod.POST)
-  public String save(E e, Model model, final RedirectAttributes ra, BindingResult bindingResult) {
+  public String save(E e, BindingResult bindingResult, Model model, final RedirectAttributes ra) {
     if (bindingResult.hasErrors()) {
-
       model.addAttribute("data", e);
       model.addAttribute("org.springframework.validation.BindingResult.data", bindingResult);
       return viewPath() + "/form";

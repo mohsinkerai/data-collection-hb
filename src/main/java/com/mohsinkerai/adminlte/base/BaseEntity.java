@@ -2,6 +2,7 @@ package com.mohsinkerai.adminlte.base;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Data
 @MappedSuperclass
@@ -18,6 +20,7 @@ import org.springframework.data.annotation.LastModifiedBy;
   @TypeDef(name = "json", typeClass = JsonStringType.class),
   @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
   @Id
