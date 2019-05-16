@@ -1,7 +1,9 @@
 package com.mohsinkerai.adminlte.base;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import java.time.LocalDateTime;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +13,9 @@ import lombok.Data;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Data
@@ -32,6 +36,14 @@ public abstract class BaseEntity {
 
   @LastModifiedBy
   protected String updatedBy;
+
+  @CreatedDate
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+  private LocalDateTime createdOn;
+
+  @LastModifiedDate
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+  private LocalDateTime updatedOn;
 
   // https://medium.com/slalom-engineering/optimistically-locking-your-spring-boot-web-services-187662eb8a91
   @Version
