@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_adminlte?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/spring_adminlte2?createDatabaseIfNotExist=true
     username: root
     password:
     tomcat:
@@ -25,7 +25,10 @@ spring:
   session:
     store-type: jdbc
     jdbc:
-      initializer:
-        enabled: true
-liquibase:
-  change-log: classpath:db/liquibase-changelog.xml
+      initialize-schema: embedded
+  liquibase:
+    change-log: classpath:db/liquibase-changelog.xml
+server:
+  servlet:
+    session:
+      timeout: 120m

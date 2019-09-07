@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
   <changeSet id="sessions-01" author="mohsin.kerai">
     <createTable remarks="Table to Store User sessions Information for System Security"
-      tableName="spring_session">
+      tableName="SPRING_SESSION">
       <column name="PRIMARY_ID" type="CHAR(36)">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
@@ -29,17 +29,17 @@
     </createTable>
   </changeSet>
   <changeSet id="sessions-02" author="mohsin.kerai">
-    <createIndex tableName="spring_session" indexName="spring_session_session_id_index">
+    <createIndex tableName="SPRING_SESSION" indexName="spring_session_session_id_index">
       <column name="SESSION_ID" />
     </createIndex>
   </changeSet>
   <changeSet id="sessions-03" author="mohsin.kerai">
-    <createIndex tableName="spring_session" indexName="spring_session_expiry_time_index">
+    <createIndex tableName="SPRING_SESSION" indexName="spring_session_expiry_time_index">
       <column name="EXPIRY_TIME" />
     </createIndex>
   </changeSet>
   <changeSet id="sessions-04" author="mohsin.kerai">
-    <createIndex tableName="spring_session" indexName="spring_session_principal_name_index">
+    <createIndex tableName="SPRING_SESSION" indexName="spring_session_principal_name_index">
       <column name="PRINCIPAL_NAME" />
     </createIndex>
   </changeSet>

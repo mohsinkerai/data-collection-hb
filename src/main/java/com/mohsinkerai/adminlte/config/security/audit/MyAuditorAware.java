@@ -10,10 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class MyAuditorAware implements AuditorAware<String> {
 
   @Override
-  public String getCurrentAuditor() {
+  public Optional<String> getCurrentAuditor() {
     return Optional.ofNullable(SecurityContextHolder.getContext())
       .map(SecurityContext::getAuthentication)
-      .map(Authentication::getName)
-      .orElse("");
+      .map(Authentication::getName);
   }
 }

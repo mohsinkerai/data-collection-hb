@@ -23,7 +23,8 @@ public abstract class BaseService<E extends BaseEntity, I extends Serializable> 
   }
 
   public Optional<E> findOne(I id) {
-    return Optional.ofNullable(simpleBaseRepository.findOne(id));
+    return simpleBaseRepository.findById(id);
+//    return Optional.ofNullable(simpleBaseRepository.findOne(id));
   }
 
   public E save(E e) {
@@ -35,6 +36,7 @@ public abstract class BaseService<E extends BaseEntity, I extends Serializable> 
   }
 
   public void delete(I id) {
-    simpleBaseRepository.delete(id);
+    simpleBaseRepository.deleteById(id);
+//    simpleBaseRepository.delete(id);
   }
 }
