@@ -8,7 +8,7 @@
 <section layout:fragment="header">
   <h1>Departments</h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li><a th:href="@{/}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li class="active">Departments</li>
   </ol>
 </section>
@@ -17,7 +17,7 @@
     <div class="box-header with-border">
       <h3 class="box-title">Lists</h3>
       <div class="box-tools pull-right">
-        <a th:href="${'/' + urlPath +'/add'}" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
+        <a th:href="@{/{urlPath}/add(urlPath=${urlPath})}" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
         <br clear="all"/>
       </div>
     </div>
@@ -32,20 +32,20 @@
           <td th:text="${row.id}"></td>
           <td th:text="${row.name}"></td>
           <td>
-            <a th:href="${'/' + urlPath +'/edit/' + row.id}">edit</a> -
-            <a th:href="${'/' + urlPath +'/delete/' + row.id}">delete</a>
+            <a th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">edit</a> -
+            <a th:href="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">delete</a>
           </td>
         </tr>
       </table>
     </div>
     <div class="box-footer clearfix">
       <ul class="pagination pagination-sm no-margin pull-right">
-        <li><a th:href="${'/' + urlPath +'/1'}" >First</a></li>
+        <li><a th:href="@{/{urlPath}/{page}(urlPath=${urlPath},page=1)}">First</a></li>
         <li th:each="p : ${#numbers.sequence(1, endIndex/beginIndex)}"
             th:class="${p == currentIndex} ? 'active' : ''">
-          <a th:href="${'/' + urlPath +'/' + p}" th:text="${p}"></a>
+          <a th:href="@{/{urlPath}/{page}(urlPath=${urlPath},page=${p})}" th:text="${p}"></a>
         </li>
-        <li><a th:href="${'/' + urlPath +'/' + endIndex}">Last</a></li>
+        <li><a th:href="@{/{urlPath}/{page}(urlPath=${urlPath},page=${endIndex})}">Last</a></li>
       </ul>
     </div>
   </div>

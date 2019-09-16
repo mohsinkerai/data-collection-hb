@@ -35,7 +35,6 @@
           <td th:text="${row.username}"></td>
           <td th:text="${row.enabled}"></td>
           <td>
-            <!--<a th:href="${'/' + urlPath +'/edit/' + row.id}">edit</a> - -->
             <a th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">edit</a> -
             <a th:href="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">delete</a>
           </td>

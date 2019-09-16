@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-  <title>Registration Client</title>
+  <title>Customer Registration</title>
 </head>
 <body>
 <section layout:fragment="header">
   <h1>Customer Registration</h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li class="active">Registration Client</li>
+    <li><a th:href="@{/}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Customer Registration</li>
   </ol>
 </section>
 <div layout:fragment="content">
@@ -17,7 +17,7 @@
     <div class="box-header with-border">
       <h3 class="box-title">Form</h3>
       <div class="box-tools pull-right">
-        <a th:href="${'/' + urlPath}" type="button" class="btn btn-box-tool"><i
+        <a th:href="@{/{urlPath}(urlPath=${urlPath})}" type="button" class="btn btn-box-tool"><i
           class="fa fa-list-ul"></i></a>
       </div>
     </div>
