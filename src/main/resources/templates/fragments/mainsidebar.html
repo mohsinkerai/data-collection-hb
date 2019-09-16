@@ -3,7 +3,7 @@
   <!-- sidebar menu: : style can be found in sidebar.less -->
   <ul class="sidebar-menu">
     <li class="treeview" th:classappend="${#httpServletRequest.requestURI.startsWith('/dashboard')? 'active':''}">
-      <a href="/">
+      <a th:href="@{/}">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
       </a>
     </li>
@@ -14,14 +14,14 @@
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li th:classappend="${#httpServletRequest.requestURI.startsWith('/customers')? 'active':''}"><a href="/customers"><i class="fa fa-circle-o"></i> Customers</a></li>
-        <li><a href="/departments" sec:authorize="hasAuthority('ADMIN')"><i class="fa fa-circle-o"></i> Departments</a></li>
+        <li th:classappend="${#httpServletRequest.requestURI.startsWith('/customers')? 'active':''}"><a th:href="@{/customers}"><i class="fa fa-circle-o"></i> Customers</a></li>
+        <li><a th:href="@{/departments}" sec:authorize="hasAuthority('ADMIN')"><i class="fa fa-circle-o"></i> Departments</a></li>
       </ul>
     </li>
     <li class="treeview"
         th:classappend="${#httpServletRequest.requestURI.startsWith('/users')? 'active':''}"
         sec:authorize="hasAuthority('ADMIN')">
-      <a href="/users">
+      <a th:href="@{/users}">
         <i class="fa fa-user" ></i> <span>Users Management</span>
       </a>
     </li>
