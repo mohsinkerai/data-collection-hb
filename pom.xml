@@ -22,6 +22,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <jasperreports.version>6.4.0</jasperreports.version>
+    <jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
+    <jasper-barbecue.version>1.5-beta1</jasper-barbecue.version>
+    <jasperreports-functions.version>6.9.0</jasperreports-functions.version>
+    <thymeleaf-spring-data-dialect.version>3.3.1</thymeleaf-spring-data-dialect.version>
   </properties>
 
   <dependencies>
@@ -44,7 +49,7 @@
     <dependency>
       <groupId>io.github.jpenren</groupId>
       <artifactId>thymeleaf-spring-data-dialect</artifactId>
-      <version>3.3.1</version>
+      <version>${thymeleaf-spring-data-dialect.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -85,6 +90,29 @@
       <groupId>org.springframework.session</groupId>
       <artifactId>spring-session-jdbc</artifactId>
     </dependency>
+
+    <!--Jasper Dependencies-->
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports</artifactId>
+      <version>${jasperreports.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports-fonts</artifactId>
+      <version>${jasperreports-fonts.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.barbecue</groupId>
+      <artifactId>barbecue</artifactId>
+      <version>${jasper-barbecue.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports-functions</artifactId>
+      <version>${jasperreports-functions.version}</version>
+    </dependency>
+    <!--Jasper Dependencies-->
 
     <!--Helpers-->
     <dependency>
