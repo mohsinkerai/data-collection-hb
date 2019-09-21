@@ -43,6 +43,6 @@ public class PersonController extends SimpleBaseController<Person> {
   @Override
   protected Map<String, Object> getAttributes() {
     List<Jamatkhana> jamatkhanas = jamatkhanaService.findAll();
-    return ImmutableMap.of("jamatkhanas", jamatkhanas);
+    return ImmutableMap.of("jks", jamatkhanas);
   }
 }

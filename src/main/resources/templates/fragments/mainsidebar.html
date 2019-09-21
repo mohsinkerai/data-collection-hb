@@ -14,8 +14,8 @@
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li th:classappend="${#httpServletRequest.requestURI.startsWith('/customers')? 'active':''}"><a th:href="@{/customers}"><i class="fa fa-circle-o"></i> Customers</a></li>
-        <li><a th:href="@{/departments}" sec:authorize="hasAuthority('ADMIN')"><i class="fa fa-circle-o"></i> Departments</a></li>
+        <li th:classappend="${#httpServletRequest.requestURI.startsWith('/person')? 'active':''}"><a th:href="@{/person}"><i class="fa fa-circle-o"></i> Person</a></li>
+        <li><a th:href="@{/jamatkhana}" sec:authorize="hasAuthority('ADMIN')"><i class="fa fa-circle-o"></i>Jamatkhana</a></li>
       </ul>
     </li>
     <li class="treeview"

@@ -63,14 +63,14 @@
 
         <div class="form-group">
           <label for="jk">Jamatkhana</label>
-          <select th:field="*{department}" id="jk" class="form-control">
-            <option th:each="jk : ${jamatkhanas}"
-                    th:value="${jk.id}"
-                    th:text="${jk.name}">Wireframe
+          <select th:field="*{jamatkhana}" id="jk" class="form-control">
+            <option th:each="jamatkhana : ${jks}"
+                    th:value="${jamatkhana.id}"
+                    th:text="${jamatkhana.name}">
             </option>
           </select>
-          <p class="text-danger" th:if="${#fields.hasErrors('jk')}"
-             th:errors="*{jk}"></p>
+          <p class="text-danger" th:if="${#fields.hasErrors('jamatkhana')}"
+             th:errors="*{jamatkhana}"></p>
         </div>
       </div>
       <div class="box-footer">
