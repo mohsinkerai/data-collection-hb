@@ -45,10 +45,19 @@
         </div>
         <div class="form-group">
           <label for="gender">Gender</label>
-          <input type="text" required="true" class="form-control" th:field="*{gender}"
-                 id="gender"/>
+          <select th:field="*{gender}" id="gender" class="form-control">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
           <p class="text-danger" th:if="${#fields.hasErrors('gender')}"
              th:errors="*{gender}"></p>
+        </div>
+        <div class="form-group">
+          <label for="dateOfBirth">Date Of Birth</label>
+          <input type="date" required="true" class="form-control" th:field="*{dateOfBirth}"
+                 id="dateOfBirth"/>
+          <p class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
+             th:errors="*{dateOfBirth}"></p>
         </div>
         <div class="form-group">
           <label for="residentialAddress">Residential Address</label>
@@ -60,7 +69,6 @@
           <input type="text" required="true" class="form-control" th:field="*{contactNumber}" id="contactNumber"/>
           <p class="text-danger" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></p>
         </div>
-
         <div class="form-group">
           <label for="jk">Jamatkhana</label>
           <select th:field="*{jamatkhana}" id="jk" class="form-control">
@@ -71,6 +79,41 @@
           </select>
           <p class="text-danger" th:if="${#fields.hasErrors('jamatkhana')}"
              th:errors="*{jamatkhana}"></p>
+        </div>
+        <div class="form-group">
+          <label for="followingVaccinations">Do you have under 5 year children in your family? if yes, are there following basic vaccinations complete?</label>
+          <select th:field="*{followingVaccinations}" id="followingVaccinations" class="form-control">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+            <option value="-1">No one less than 5 years</option>
+          </select>
+          <p class="text-danger" th:if="${#fields.hasErrors('followingVaccinations')}"
+             th:errors="*{followingVaccinations}"></p>
+        </div>
+        <div class="form-group">
+          <label for="daysEatingOutsideFood">How many day in a week do you eat food from outside / resturants?</label>
+          <select th:field="*{daysEatingOutsideFood}" id="daysEatingOutsideFood" class="form-control">
+            <option value="0">Less than once a week</option>
+            <option value="1">Once a week</option>
+            <option value="2">Twice a week</option>
+            <option value="3">Thrice a week</option>
+            <option value="4">More than Thrice a week</option>
+          </select>
+          <p class="text-danger" th:if="${#fields.hasErrors('daysEatingOutsideFood')}"
+             th:errors="*{daysEatingOutsideFood}"></p>
+        </div>
+        <div class="form-group">
+          <label for="hoursAWeekYouExercise">How many hours in a week do you exercise?</label>
+          <select th:field="*{hoursAWeekYouExercise}" id="hoursAWeekYouExercise" class="form-control">
+            <option value="-1">Never</option>
+            <option value="0">Less than an hour</option>
+            <option value="1">1 Hour</option>
+            <option value="2">2 Hours</option>
+            <option value="3">3 Hours</option>
+            <option value="4">More than 3 Hours</option>
+          </select>
+          <p class="text-danger" th:if="${#fields.hasErrors('hoursAWeekYouExercise')}"
+             th:errors="*{hoursAWeekYouExercise}"></p>
         </div>
       </div>
       <div class="box-footer">
