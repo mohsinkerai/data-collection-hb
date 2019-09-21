@@ -12,6 +12,6 @@
   <include file="system/session-attributes.xml" relativeToChangelogFile="true" />
 
   <!--BUSINESS-->
-  <include file="business/department.xml" relativeToChangelogFile="true"/>
-  <include file="business/customer.xml" relativeToChangelogFile="true"/>
+  <include file="business/jamatkhana.xml" relativeToChangelogFile="true"/>
+  <include file="business/person.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

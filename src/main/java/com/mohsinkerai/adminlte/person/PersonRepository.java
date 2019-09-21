@@ -1,9 +1,9 @@
-package com.mohsinkerai.adminlte.customer;
+package com.mohsinkerai.adminlte.person;
 
 import com.mohsinkerai.adminlte.base.SimpleBaseRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepositorySimple extends SimpleBaseRepository<Customer> {
+public interface PersonRepository extends SimpleBaseRepository<Person> {
 
 }

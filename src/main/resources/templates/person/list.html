@@ -2,20 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-  <title>Customers</title>
+  <title>Person</title>
 </head>
 <body>
 <section layout:fragment="header">
-  <h1>Customers</h1>
+  <h1>Person</h1>
   <ol class="breadcrumb">
     <li><a th:href="@{/}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li class="active">Clients</li>
+    <li class="active">Person</li>
   </ol>
 </section>
 <div layout:fragment="content">
   <div class="box">
     <div class="box-header with-border">
-      <h3 class="box-title">Customers</h3>
+      <h3 class="box-title">Lists</h3>
       <div class="box-tools pull-right">
         <a th:href="@{/{urlPath}/add(urlPath=${urlPath})}" type="button" class="btn btn-box-tool"><i
           class="fa fa-plus"></i></a>
@@ -26,16 +26,16 @@
       <table class="table table-striped">
         <tr>
           <th>ID</th>
-          <th>Full Name</th>
-          <th>Email</th>
-          <th>Registration Date</th>
+          <th>Name</th>
+          <th>CNIC</th>
+          <th>Gender</th>
           <th>Action</th>
         </tr>
         <tr th:each="row : ${list}">
           <td th:text="${row.id}"></td>
-          <td th:text="${row.firstname + ' ' + row.lastname}"></td>
-          <td th:text="${row.email}"></td>
-          <td th:text="${#dates.format(row.addedDate, 'dd/MM/yyyy')}"></td>
+          <td th:text="${row.name}"></td>
+          <td th:text="${row.cnic}"></td>
+          <td th:text="${row.cnic}"></td>
           <td>
             <a th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">edit</a> -
             <a th:href="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">delete</a>

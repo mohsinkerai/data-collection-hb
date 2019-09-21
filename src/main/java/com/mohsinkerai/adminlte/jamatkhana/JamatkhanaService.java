@@ -1,14 +1,14 @@
-package com.mohsinkerai.adminlte.customer;
+package com.mohsinkerai.adminlte.jamatkhana;
 
 import com.mohsinkerai.adminlte.base.SimpleBaseRepository;
 import com.mohsinkerai.adminlte.base.SimpleBaseService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerServiceSimple extends SimpleBaseService<Customer> {
+public class JamatkhanaService extends SimpleBaseService<Jamatkhana> {
 
-  protected CustomerServiceSimple(
-    SimpleBaseRepository<Customer> simpleBaseRepository) {
+  protected JamatkhanaService(
+    SimpleBaseRepository<Jamatkhana> simpleBaseRepository) {
     super(simpleBaseRepository);
   }
 }

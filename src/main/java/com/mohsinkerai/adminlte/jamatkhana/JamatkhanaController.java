@@ -1,4 +1,4 @@
-package com.mohsinkerai.adminlte.department;
+package com.mohsinkerai.adminlte.jamatkhana;
 
 import com.google.common.collect.Maps;
 import com.mohsinkerai.adminlte.base.SimpleBaseController;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(DepartmentControllerSimple.URL_PATH)
-public class DepartmentControllerSimple extends SimpleBaseController<Department> {
+@RequestMapping(JamatkhanaController.URL_PATH)
+public class JamatkhanaController extends SimpleBaseController<Jamatkhana> {
 
-  public static final String URL_PATH = "departments";
+  public static final String URL_PATH = "jamatkhana";
 
-  protected DepartmentControllerSimple(
-    SimpleBaseService<Department> simpleBaseService) {
+  protected JamatkhanaController(
+    SimpleBaseService<Jamatkhana> simpleBaseService) {
     super(simpleBaseService);
   }
 
@@ -29,8 +29,8 @@ public class DepartmentControllerSimple extends SimpleBaseController<Department>
   }
 
   @Override
-  protected Department getEmptyObject() {
-    return new Department();
+  protected Jamatkhana getEmptyObject() {
+    return new Jamatkhana();
   }
 
   @Override

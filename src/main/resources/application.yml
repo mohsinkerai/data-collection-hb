@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_adminlte2?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/data_collection_hb?createDatabaseIfNotExist=true
     username: root
     password:
     tomcat:
