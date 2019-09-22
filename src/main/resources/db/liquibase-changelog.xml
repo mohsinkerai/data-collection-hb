@@ -14,4 +14,7 @@
   <!--BUSINESS-->
   <include file="business/jamatkhana.xml" relativeToChangelogFile="true"/>
   <include file="business/person.xml" relativeToChangelogFile="true"/>
+  <include file="business/visited_doctor_recently.xml" relativeToChangelogFile="true"/>
+  <include file="business/current_health_insurance.xml" relativeToChangelogFile="true"/>
+  <include file="business/diagnosed_disease_or_medicine.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

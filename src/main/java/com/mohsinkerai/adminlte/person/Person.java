@@ -4,7 +4,10 @@ import com.mohsinkerai.adminlte.base.BaseEntity;
 import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,15 +24,24 @@ public class Person extends BaseEntity {
   private String residentialAddress;
   private String contactNumber;
 
-  // In the last 12 months have you visited doctor / hospital for medical checkup?, If yes, Type of
-  //facility accessed? (Multiple Selection)
-//  private List<String> visitedDoctorRecently;
+//   In the last 12 months have you visited doctor / hospital for medical checkup?, If yes, Type of
+//  facility accessed? (Multiple Selection)
+  @ElementCollection
+  @CollectionTable(name="visited_doctor_recently", joinColumns=@JoinColumn(name="person_id"))
+  @Column(name = "visited_doctor_recently")
+  private List<String> visitedDoctorRecently;
 
   // Have you been diagnosed or prescribed medicine for any disease? (Multiple Selection)
-//  private List<String> diagnosedDiseaseOrMedicine;
+  @ElementCollection
+  @CollectionTable(name="diagnosed_disease_or_medicine", joinColumns=@JoinColumn(name="person_id"))
+  @Column(name = "diagnosed_disease_or_medicine")
+  private List<String> diagnosedDiseaseOrMedicine;
 
   // Do you have access to health insurance? If yes, From where: (Multiple Selection)
-//  private List<String> currentHealthInsurance;
+  @ElementCollection
+  @CollectionTable(name="current_health_insurance", joinColumns=@JoinColumn(name="person_id"))
+  @Column(name = "current_health_insurance")
+  private List<String> currentHealthInsurance;
 
   //Do you have under 5 year children in your family? if yes, are there following basic vaccinations
   //complete?

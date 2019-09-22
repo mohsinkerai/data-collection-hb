@@ -1,0 +1,40 @@
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet id="visited_doctor_recently-01" author="mohsin.kerai">
+    <createTable remarks="Table to Store Which Person Visited Doctor Where"
+      tableName="visited_doctor_recently">
+      <column autoIncrement="true" name="id" type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="version" type="bigint" defaultValue="1"></column>
+
+      <column name="person_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="visited_doctor_recently" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+
+      <!--AUDIT COLUMN-->
+      <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_on" type="datetime">
+        <constraints nullable="false" unique="false"/>
+      </column>
+      <column defaultValueComputed="CURRENT_TIMESTAMP" name="updated_on" type="datetime">
+        <constraints nullable="false" unique="false"/>
+      </column>
+      <column defaultValueComputed="null" name="created_by" type="varchar(255)">
+        <constraints nullable="true" unique="false"/>
+      </column>
+      <column defaultValueComputed="null" name="updated_by" type="varchar(255)">
+        <constraints nullable="true" unique="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet id="visited_doctor_recently-02" author="mohsin.kerai">
+    <addForeignKeyConstraint baseTableName="visited_doctor_recently" baseColumnNames="person_id"
+      constraintName="visited_doctor_recently_person_id_fk"
+      referencedTableName="person" referencedColumnNames="id"/>
+  </changeSet>
+</databaseChangeLog>
