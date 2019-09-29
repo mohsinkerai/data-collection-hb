@@ -1,6 +1,7 @@
 package com.mohsinkerai.adminlte.person;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.common.collect.Lists;
 import com.mohsinkerai.adminlte.base.BaseEntity;
 import com.mohsinkerai.adminlte.config.ProjectConstant;
 import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
@@ -32,19 +33,19 @@ public class Person extends BaseEntity {
   @ElementCollection
   @CollectionTable(name="visited_doctor_recently", joinColumns=@JoinColumn(name="person_id"))
   @Column(name = "visited_doctor_recently")
-  private List<String> visitedDoctorRecently;
+  private List<String> visitedDoctorRecently = Lists.newArrayList();
 
   // Have you been diagnosed or prescribed medicine for any disease? (Multiple Selection)
   @ElementCollection
   @CollectionTable(name="diagnosed_disease_or_medicine", joinColumns=@JoinColumn(name="person_id"))
   @Column(name = "diagnosed_disease_or_medicine")
-  private List<String> diagnosedDiseaseOrMedicine;
+  private List<String> diagnosedDiseaseOrMedicine = Lists.newArrayList();
 
   // Do you have access to health insurance? If yes, From where: (Multiple Selection)
   @ElementCollection
   @CollectionTable(name="current_health_insurance", joinColumns=@JoinColumn(name="person_id"))
   @Column(name = "current_health_insurance")
-  private List<String> currentHealthInsurance;
+  private List<String> currentHealthInsurance = Lists.newArrayList();
 
   //Do you have under 5 year children in your family? if yes, are there following basic vaccinations
   //complete?

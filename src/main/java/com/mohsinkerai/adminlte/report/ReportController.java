@@ -5,6 +5,7 @@ import static com.mohsinkerai.adminlte.report.ReportController.REPORT_CONTROLLER
 import com.mohsinkerai.adminlte.person.Person;
 import com.mohsinkerai.adminlte.person.PersonService;
 import com.mohsinkerai.adminlte.report.dto.UsernameAndDateDto;
+import com.mohsinkerai.adminlte.report.generator.PersonListReportGenerator;
 import com.mohsinkerai.adminlte.users.MyUser;
 import com.mohsinkerai.adminlte.users.MyUserService;
 import java.time.LocalDate;
@@ -12,10 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.jasperreports.engine.JRException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping(REPORT_CONTROLLER_NAME)
@@ -28,6 +32,7 @@ public class ReportController {
 
   private final MyUserService userService;
   private final PersonService personService;
+  private final PersonListReportGenerator personListReportGenerator;
 
   @GetMapping("forms/by-username")
   public String findFormsFilledByUsername(Model model) {
@@ -45,7 +50,8 @@ public class ReportController {
   }
 
   @GetMapping("forms/by-username/download")
-  public String getFormsFilledByUsername(UsernameAndDateDto usernameAndDateDto, Model model) {
+  public HttpEntity<byte[]> getFormsFilledByUsername(UsernameAndDateDto usernameAndDateDto, Model model)
+    throws JRException {
     LocalDate localDate = usernameAndDateDto.getDate();
     String username = usernameAndDateDto.getUsername();
 
@@ -53,6 +59,12 @@ public class ReportController {
       .findByCreatedByAndCreatedOn(username, localDate);
     log.info("Got DTO {}, persons {}", usernameAndDateDto, persons);
     // Return Report Here
-    return REPORT_CONTROLLER_NAME + "/by-username";
+    byte[] bytes = personListReportGenerator.generatePDFReport(persons);
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_PDF);
+    headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + "persons-by-username-on-time" + ".pdf");
+
+    return new HttpEntity<byte[]>(bytes, headers);
   }
 }

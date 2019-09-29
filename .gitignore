@@ -75,3 +75,6 @@ hs_err_pid*
 Sistema.iml
 target/
 *.iml
+.classpath
+.project
+.settings
