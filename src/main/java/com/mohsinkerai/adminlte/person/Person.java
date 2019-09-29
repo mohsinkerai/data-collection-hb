@@ -1,6 +1,8 @@
 package com.mohsinkerai.adminlte.person;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mohsinkerai.adminlte.base.BaseEntity;
+import com.mohsinkerai.adminlte.config.ProjectConstant;
 import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -12,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
@@ -57,4 +60,8 @@ public class Person extends BaseEntity {
   @ManyToOne
   @JoinColumn(name = "jamatkhana_id")
   private Jamatkhana jamatkhana;
+
+  @DateTimeFormat(pattern = ProjectConstant.DATE_HTML_FORMAT)
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ProjectConstant.DATE_FORMAT)
+  private LocalDate createdDate;
 }

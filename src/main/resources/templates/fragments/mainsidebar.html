@@ -18,6 +18,16 @@
         <li><a th:href="@{/jamatkhana}" sec:authorize="hasAuthority('ADMIN')"><i class="fa fa-circle-o"></i>Jamatkhana</a></li>
       </ul>
     </li>
+    <li class="treeview" th:classappend="${#httpServletRequest.requestURI.startsWith('/customers')? 'active':''}">
+      <a href="#">
+        <i class="fa fa-folder"></i>
+        <span>Reports</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a th:href="@{/report/forms/by-username}"><i class="fa fa-circle-o"></i>By Username and Date</a></li>
+      </ul>
+    </li>
     <li class="treeview"
         th:classappend="${#httpServletRequest.requestURI.startsWith('/users')? 'active':''}"
         sec:authorize="hasAuthority('ADMIN')">

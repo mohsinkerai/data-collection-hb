@@ -61,4 +61,9 @@
       constraintName="customer_jamatkhana_id_fk"
       referencedTableName="jamatkhana" referencedColumnNames="id"/>
   </changeSet>
+  <changeSet id="person-03" author="mohsin.kerai">
+    <addColumn tableName="person">
+      <column name="created_date" type="date"></column>
+    </addColumn>
+  </changeSet>
 </databaseChangeLog>
