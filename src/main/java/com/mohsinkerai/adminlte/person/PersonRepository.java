@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PersonRepository extends SimpleBaseRepository<Person> {
 
-  List<Person> findByCreatedByAndCreatedDate(String createdBy, LocalDate createdDate);
+  List<Person> findByCreatedByAndCreatedDateBetween(String createdBy, LocalDate fromCreatedDate, LocalDate toCreatedDate);
 }

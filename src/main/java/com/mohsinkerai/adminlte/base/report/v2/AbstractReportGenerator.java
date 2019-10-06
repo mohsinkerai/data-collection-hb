@@ -1,10 +1,12 @@
 package com.mohsinkerai.adminlte.base.report.v2;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mohsinkerai.adminlte.utils.JasperReportUtils;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -21,6 +23,11 @@ public abstract class AbstractReportGenerator {
 
   public byte[] generatePDFReport(Collection<?> data) throws JRException {
     List<JasperPrint> jasperPrints = JasperReportUtils.generateJasperPrints(jasperReport, data);
+    return JasperReportUtils.generatePDFReport(jasperPrints);
+  }
+
+  public byte[] generatePDFReport(Collection<?> data, Map<String, Object> params) throws JRException {
+    List<JasperPrint> jasperPrints = JasperReportUtils.generateJasperPrints(jasperReport, data, params);
     return JasperReportUtils.generatePDFReport(jasperPrints);
   }
 }

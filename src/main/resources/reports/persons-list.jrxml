@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="persons-list" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c1d86d53-4cae-4851-8edc-a7e0774b05c8">
+	<parameter name="REPORT_NAME" class="java.lang.String"/>
+	<parameter name="FROM_DATE" class="java.util.Date"/>
+	<parameter name="TO_DATE" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -23,7 +26,32 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="35" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="3" width="555" height="20" uuid="a98b46a1-b978-471c-9583-31419a9a996a"/>
+				<textField>
+					<reportElement x="6" y="0" width="270" height="20" uuid="30850201-ba7d-43ee-a3fc-3fa449dd46ea"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{REPORT_NAME}]]></textFieldExpression>
+				</textField>
+				<textField pattern="MMM d, yyyy">
+					<reportElement x="310" y="0" width="108" height="20" uuid="aba31e38-0ea4-4f85-a129-a482d4c6c678"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{FROM_DATE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="MMM d, yyyy">
+					<reportElement x="430" y="0" width="124" height="20" uuid="dbeb1945-d131-4642-ae28-c5042f486be7"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{TO_DATE}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="22" splitType="Stretch">

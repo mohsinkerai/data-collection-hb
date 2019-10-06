@@ -19,5 +19,9 @@ public class UsernameAndDateDto {
 
   @DateTimeFormat(pattern = ProjectConstant.DATE_HTML_FORMAT)
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ProjectConstant.DATE_FORMAT)
-  private LocalDate date;
+  private LocalDate fromDate;
+
+  @DateTimeFormat(pattern = ProjectConstant.DATE_HTML_FORMAT)
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ProjectConstant.DATE_FORMAT)
+  private LocalDate toDate;
 }

@@ -22,8 +22,9 @@ public class PersonService extends SimpleBaseService<Person> {
     this.myUserService = myUserService;
   }
 
-  public List<Person> findByCreatedByAndCreatedOn(String username, LocalDate createdOn) {
-    return personRepository.findByCreatedByAndCreatedDate(username, createdOn);
+  public List<Person> findByCreatedByAndCreatedOn(String username, LocalDate fromDate,
+    LocalDate toDate) {
+    return personRepository.findByCreatedByAndCreatedDateBetween(username, fromDate, toDate);
   }
 
   @Override

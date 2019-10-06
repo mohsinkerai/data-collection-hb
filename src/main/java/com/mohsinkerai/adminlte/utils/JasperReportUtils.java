@@ -42,7 +42,6 @@ public final class JasperReportUtils {
    * Given Jasper Prints, It merges all of them (In-Order of List) and generate a PDF out ot it.
    */
   public static final byte[] generatePDFReport(List<JasperPrint> jasperPrints) throws JRException {
-
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     JRPdfExporter exporter = new JRPdfExporter();
     exporter.setExporterInput(SimpleExporterInput

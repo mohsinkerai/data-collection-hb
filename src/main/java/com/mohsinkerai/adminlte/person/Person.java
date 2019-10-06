@@ -65,4 +65,6 @@ public class Person extends BaseEntity {
   @DateTimeFormat(pattern = ProjectConstant.DATE_HTML_FORMAT)
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ProjectConstant.DATE_FORMAT)
   private LocalDate createdDate;
+
+  private String uuid;
 }
