@@ -1,6 +1,8 @@
 package com.mohsinkerai.adminlte.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mohsinkerai.adminlte.base.BaseEntity;
+import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
 import com.mohsinkerai.adminlte.users.authority.MyAuthority;
 import com.mohsinkerai.adminlte.users.authority.MyAuthoritySwitchDto;
 import java.util.Collection;
@@ -13,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,6 +45,11 @@ public class MyUser extends BaseEntity implements UserDetails {
   private Boolean locked = false;
   private Boolean credentialsExpired = false;
   private Boolean accountExpired = false;
+
+//  fetch = FetchType.LAZY
+  @ManyToOne()
+  @JoinColumn(name = "jamatkhana_id")
+  private Jamatkhana jamatkhana;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(

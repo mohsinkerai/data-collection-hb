@@ -150,6 +150,13 @@ public class MyUserService extends SimpleBaseService<MyUser> implements UserDeta
     this.authenticationManager = authenticationManager;
   }
 
+  public MyUser getCurrentLoggedInUser() {
+    MyUser principal = (MyUser) SecurityContextHolder.getContext().getAuthentication()
+      .getPrincipal();
+    String username = principal.getUsername();
+    return findByUsername(username).get();
+  }
+
   protected Authentication createNewAuthentication(Authentication currentAuth, MyUser myUser) {
     UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(
       myUser.getUsername(), null, myUser.getAuthorities());

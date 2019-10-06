@@ -3,6 +3,7 @@ package com.mohsinkerai.adminlte.base;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
   @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
