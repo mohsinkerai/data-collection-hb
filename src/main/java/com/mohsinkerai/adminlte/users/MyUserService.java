@@ -48,7 +48,8 @@ public class MyUserService extends SimpleBaseService<MyUser> implements UserDeta
   @Override
   @Transactional
   public Optional<MyUser> findOne(Long id) {
-    return super.findOne(id).map(this::populateAuthoritySwitch);
+    return super.findOne(id);
+//      .map(this::populateAuthoritySwitch);
   }
 
   @Override

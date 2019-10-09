@@ -1,32 +1,23 @@
 package com.mohsinkerai.adminlte.users;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mohsinkerai.adminlte.base.BaseEntity;
 import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
 import com.mohsinkerai.adminlte.users.authority.MyAuthority;
 import com.mohsinkerai.adminlte.users.authority.MyAuthoritySwitchDto;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.DynamicUpdate;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Setter
@@ -53,11 +44,19 @@ public class MyUser extends BaseEntity implements UserDetails {
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(
+    name = "my_user_jamatkhana",
+    joinColumns = @JoinColumn(name = "jamatkhana_id"),
+    inverseJoinColumns = @JoinColumn(name = "my_user_id")
+  )
+  private Set<Jamatkhana> jamatkhanas = Sets.newHashSet();
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(
     name = "my_user_authority",
     joinColumns = @JoinColumn(name = "my_authority_id"),
     inverseJoinColumns = @JoinColumn(name = "my_user_id")
   )
-  private List<MyAuthority> myAuthorities;
+  private List<MyAuthority> myAuthorities = Lists.newArrayList();
 
   @Transient
   @Getter

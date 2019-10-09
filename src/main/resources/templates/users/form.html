@@ -51,23 +51,37 @@
         </div>
 
         <div class="form-group">
-          <div class="checkbox" th:each="authority : *{authoritySwitchDtos}">
-            <input type="checkbox" th:id="${authority.authority.name}" th:field="*{myAuthorities}"
-                   th:name="${authority.authority.name}" th:checked="${authority.enabled}" th:value="${authority.authority.id}" />
-            <label th:for="${authority.authority.name}" th:text="${authority.authority.name}"></label>
+            <label for="jk">Jamatkhana</label>
+            <select th:field="*{jamatkhana}" id="jk" class="form-control">
+              <option th:each="jamatkhana : ${jks}"
+                      th:value="${jamatkhana.id}"
+                      th:text="${jamatkhana.name}">
+              </option>
+            </select>
+            <p class="text-danger" th:if="${#fields.hasErrors('jamatkhana')}"
+               th:errors="*{jamatkhana}"></p>
+        </div>
+
+        <div class="form-group">
+          <label>Jamatkhanas</label>
+          <div class="checkbox" th:each="jk : ${jks}">
+            <label th:for="${jk.name}">
+              <input th:id="${jk.name}" type="checkbox" th:checked="${#sets.contains(data.jamatkhanas,jk)}" name="jamatkhanas" th:value="${jk.id}">
+              <span th:text="${jk.name}"></span>
+            </label>
           </div>
         </div>
+
         <div class="form-group">
-          <label for="jk">Jamatkhana</label>
-          <select th:field="*{jamatkhana}" id="jk" class="form-control">
-            <option th:each="jamatkhana : ${jks}"
-                    th:value="${jamatkhana.id}"
-                    th:text="${jamatkhana.name}">
-            </option>
-          </select>
-          <p class="text-danger" th:if="${#fields.hasErrors('jamatkhana')}"
-             th:errors="*{jamatkhana}"></p>
+          <label>Authorities</label>
+          <div class="checkbox" th:each="auth : ${authorities}">
+            <label th:for="${auth.name}">
+              <input th:id="${auth.name}" type="checkbox" th:checked="${#sets.contains(data.myAuthorities,auth)}" name="myAuthorities" th:value="${auth.id}">
+              <span th:text="${auth.name}"></span>
+            </label>
+          </div>
         </div>
+
       </div>
       <div class="box-footer">
         <button type="submit" class="btn btn-primary">Save</button>
