@@ -4,15 +4,19 @@ import com.google.common.collect.ImmutableMap;
 import com.mohsinkerai.adminlte.base.SimpleBaseController;
 import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
 import com.mohsinkerai.adminlte.jamatkhana.JamatkhanaService;
+import com.mohsinkerai.adminlte.users.MyUser;
 import com.mohsinkerai.adminlte.users.MyUserService;
-import java.util.List;
-import java.util.Map;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(PersonController.URL_PATH)
@@ -51,8 +55,41 @@ public class PersonController extends SimpleBaseController<Person> {
 
   @Override
   protected Map<String, Object> getAttributes() {
+    MyUser currentUser = myUserService.getCurrentLoggedInUser();
     List<Jamatkhana> jamatkhanas = jamatkhanaService.findAll();
-    return ImmutableMap.of("jks", jamatkhanas);
+    return ImmutableMap.of("jks", currentUser.getJamatkhanas());
+  }
+
+  @Override
+  @PreAuthorize("hasAuthority('ADMIN')")
+  public String delete(@PathVariable Long id) {
+    return super.delete(id);
+  }
+
+  @Override
+  @PreAuthorize("hasAuthority('ADMIN')")
+  public String list(@PathVariable Integer pageNumber, Model model) {
+    return super.list(pageNumber, model);
+  }
+
+  @RequestMapping(value = "/jk", method = RequestMethod.GET)
+  public String jkList(Model model) {
+    MyUser currentLoggedInUser = myUserService.getCurrentLoggedInUser();
+    List<Person> list = personService.findByJamatkhanaIn(currentLoggedInUser.getJamatkhanas());
+
+    int current = 1;
+    int totalPages = 1;
+    int begin = Math.max(1, current - PAGE_SIZE);
+    int end = Math.min(begin + PAGE_SIZE, totalPages == 0 ? 1 : totalPages);
+
+    model.addAttribute("urlPath", urlPath());
+
+    model.addAttribute("list", list);
+    model.addAttribute("beginIndex", begin);
+    model.addAttribute("endIndex", end);
+    model.addAttribute("currentIndex", current);
+
+    return viewPath() + "/list";
   }
 
   @Override
@@ -66,7 +103,7 @@ public class PersonController extends SimpleBaseController<Person> {
 
   @Override
   public String save(Person person, BindingResult bindingResult, Model model,
-    RedirectAttributes ra) {
+                     RedirectAttributes ra) {
     super.save(person, bindingResult, model, ra);
     ra.addFlashAttribute("successFlash", String
       .format("Successfully Saved Jamati Memeber with Name <b>%s</b> and id </b>%d</b>", person.getName(),

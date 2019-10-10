@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public abstract class BaseController<E extends BaseEntity, I extends Serializable> {
 
-  private static final int PAGE_SIZE = 10;
+  protected static final int PAGE_SIZE = 10;
   protected final BaseService<E, I> baseService;
 
   protected BaseController(BaseService<E, I> baseService) {

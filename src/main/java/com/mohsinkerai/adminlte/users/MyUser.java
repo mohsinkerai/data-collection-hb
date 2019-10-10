@@ -7,8 +7,6 @@ import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
 import com.mohsinkerai.adminlte.users.authority.MyAuthority;
 import com.mohsinkerai.adminlte.users.authority.MyAuthoritySwitchDto;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,7 +35,7 @@ public class MyUser extends BaseEntity implements UserDetails {
   private Boolean credentialsExpired = false;
   private Boolean accountExpired = false;
 
-//  fetch = FetchType.LAZY
+  //  fetch = FetchType.LAZY
   @ManyToOne()
   @JoinColumn(name = "jamatkhana_id")
   private Jamatkhana jamatkhana;
@@ -118,6 +116,16 @@ public class MyUser extends BaseEntity implements UserDetails {
     this.credentialsExpired = !userDetails.isCredentialsNonExpired();
     this.accountExpired = !userDetails.isAccountNonExpired();
     this.myAuthorities = userDetails.getAuthorities().stream().map(this::apply).collect(Collectors.toList());
+  }
+
+  public boolean isAdminUser() {
+    return this.getAuthorities()
+      .stream()
+      .map(GrantedAuthority::getAuthority)
+      .map(String::toLowerCase)
+      .filter(s -> s.equals("ADMIN"))
+      .findAny()
+      .isPresent();
   }
 
   private MyAuthority apply(GrantedAuthority authority) {

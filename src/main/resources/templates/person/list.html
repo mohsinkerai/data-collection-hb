@@ -29,16 +29,19 @@
           <th>Name</th>
           <th>CNIC</th>
           <th>Gender</th>
+          <th>Jamatkhana</th>
           <th>Action</th>
         </tr>
         <tr th:each="row : ${list}">
           <td th:text="${row.id}"></td>
           <td th:text="${row.name}"></td>
           <td th:text="${row.cnic}"></td>
-          <td th:text="${row.cnic}"></td>
+          <td th:text="${row.gender}"></td>
+          <td th:text="${row.jamatkhana.name}"></td>
           <td>
-            <a th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">edit</a> -
-            <a th:href="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">delete</a>
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">edit</a>
+            <a sec:authorize="!hasAuthority('ADMIN')" th:if="${#temporals.createNow().minusDays(2).minusHours(4) < row.createdOn}" th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">edit</a> -
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">delete</a>
           </td>
         </tr>
       </table>

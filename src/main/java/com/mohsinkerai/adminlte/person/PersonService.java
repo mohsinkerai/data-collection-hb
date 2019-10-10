@@ -1,11 +1,16 @@
 package com.mohsinkerai.adminlte.person;
 
 import com.mohsinkerai.adminlte.base.SimpleBaseService;
+import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
 import com.mohsinkerai.adminlte.users.MyUser;
 import com.mohsinkerai.adminlte.users.MyUserService;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
@@ -37,12 +42,18 @@ public class PersonService extends SimpleBaseService<Person> {
     return super.save(person);
   }
 
+
+
   public boolean isPersonEditAllowed(Long personId) {
     Person person = findOne(personId)
       .orElseThrow(() -> new RuntimeException(String.format("Id %d Doesn't Exist", personId)));
     MyUser currentLoggedInUser = myUserService.getCurrentLoggedInUser();
     boolean admin = isAdmin(currentLoggedInUser);
     return admin || ChronoUnit.DAYS.between(person.getCreatedDate(), LocalDate.now()) < 2;
+  }
+
+  public List<Person> findByJamatkhanaIn(Collection<Jamatkhana> jamatkhanas) {
+    return personRepository.findByJamatkhanaIn(jamatkhanas);
   }
 
   private boolean isAdmin(MyUser currentUser) {
