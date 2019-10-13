@@ -14,6 +14,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,36 +31,41 @@ public class Person extends BaseEntity {
   private Date dateOfBirth;
   private String residentialAddress;
   private String contactNumber;
+  private int houseHoldMembersCount;
 
-//   In the last 12 months have you visited doctor / hospital for medical checkup?, If yes, Type of
-//  facility accessed? (Multiple Selection)
+  // Do you have any of the following disabilities?
   @ElementCollection
-  @CollectionTable(name="visited_doctor_recently", joinColumns=@JoinColumn(name="person_id"))
-  @Column(name = "visited_doctor_recently")
-  private List<String> visitedDoctorRecently = Lists.newArrayList();
+  @CollectionTable(name="disability", joinColumns=@JoinColumn(name="person_id"))
+  @Column(name = "disability")
+  private List<String> disability = Lists.newArrayList();
 
-  // Have you been diagnosed or prescribed medicine for any disease? (Multiple Selection)
-  @ElementCollection
-  @CollectionTable(name="diagnosed_disease_or_medicine", joinColumns=@JoinColumn(name="person_id"))
-  @Column(name = "diagnosed_disease_or_medicine")
-  private List<String> diagnosedDiseaseOrMedicine = Lists.newArrayList();
+  @Max(1)
+  @Min(0)
+  // In the last 12 months have you visited doctor / hospital for medical checkup?
+  private int visitedDoctorForCheckup;
 
-  // Do you have access to health insurance? If yes, From where: (Multiple Selection)
-  @ElementCollection
-  @CollectionTable(name="current_health_insurance", joinColumns=@JoinColumn(name="person_id"))
-  @Column(name = "current_health_insurance")
-  private List<String> currentHealthInsurance = Lists.newArrayList();
+  @Max(1)
+  @Min(0)
+  // Do you smoke?
+  private int smoke;
 
-  //Do you have under 5 year children in your family? if yes, are there following basic vaccinations
-  //complete?
-  private int followingVaccinations;
+  @Max(1)
+  @Min(0)
+  // Insurance Coverage
+  private int insuranceCoverage;
 
-  // How many day in a week do you eat food from outside / resturants?
-  private int daysEatingOutsideFood;
+  @Max(1)
+  @Min(0)
+  // Self Covered Insurance
+  private int selfInsuranceCoverage;
 
-  // How many hours in a week do you exercise?
-  @Column(name="hours_a_week_you_exercise")
-  private int hoursAWeekYouExercise;
+  @Max(1)
+  @Min(0)
+  // Employer Covered Insurance
+  private int employerInsuranceCoverage;
+
+  @Size(min = 0, max = 15)
+  private String otherMedicalFacilityAccessed;
 
   @ManyToOne
   @JoinColumn(name = "jamatkhana_id")
@@ -65,6 +74,5 @@ public class Person extends BaseEntity {
   @DateTimeFormat(pattern = ProjectConstant.DATE_HTML_FORMAT)
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ProjectConstant.DATE_FORMAT)
   private LocalDate createdDate;
-
   private String uuid;
 }

@@ -2,18 +2,14 @@
   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-  <changeSet id="current_health_insurance-01" author="mohsin.kerai">
-    <createTable remarks="Table to Store Which Person Has Insurannce and Where"
-      tableName="current_health_insurance">
+  <changeSet id="health_facility-01" author="mohsin.kerai">
+    <createTable remarks="Table to Store health_facility Name for FK"
+      tableName="health_facility">
       <column autoIncrement="true" name="id" type="bigint">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="version" type="bigint" defaultValue="1"></column>
-
-      <column name="person_id" type="bigint">
-        <constraints nullable="false"/>
-      </column>
-      <column name="current_health_insurance" type="varchar(255)">
+      <column name="name" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
 
@@ -31,10 +27,5 @@
         <constraints nullable="true" unique="false"/>
       </column>
     </createTable>
-  </changeSet>
-  <changeSet id="current_health_insurance-02" author="mohsin.kerai">
-    <addForeignKeyConstraint baseTableName="current_health_insurance" baseColumnNames="person_id"
-      constraintName="current_health_insurance_person_id_fk"
-      referencedTableName="person" referencedColumnNames="id"/>
   </changeSet>
 </databaseChangeLog>

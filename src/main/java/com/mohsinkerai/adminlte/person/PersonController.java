@@ -106,7 +106,7 @@ public class PersonController extends SimpleBaseController<Person> {
                      RedirectAttributes ra) {
     super.save(person, bindingResult, model, ra);
     ra.addFlashAttribute("successFlash", String
-      .format("Successfully Saved Jamati Memeber with Name <b>%s</b> and id </b>%d</b>", person.getName(),
+      .format("Successfully Saved Jamati Memeber with Name ==[%s]== and id ==[%d]==", person.getName(),
         person.getId()));
     return "redirect:/" + urlPath() + "/add";
   }

@@ -5,17 +5,19 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
   <!--SYSTEM-->
+  <include file="business/jamatkhana.xml" relativeToChangelogFile="true"/>
   <include file="system/my-users.xml" relativeToChangelogFile="true"/>
   <include file="system/my-authority.xml" relativeToChangelogFile="true"/>
   <include file="system/my-user-authority.xml" relativeToChangelogFile="true"/>
   <include file="system/session.xml" relativeToChangelogFile="true" />
   <include file="system/session-attributes.xml" relativeToChangelogFile="true" />
+  <include file="system/my-user-jamatkhana.xml" relativeToChangelogFile="true" />
 
   <!--BUSINESS-->
-  <include file="business/jamatkhana.xml" relativeToChangelogFile="true"/>
   <include file="business/person.xml" relativeToChangelogFile="true"/>
-  <include file="business/visited_doctor_recently.xml" relativeToChangelogFile="true"/>
-  <include file="business/current_health_insurance.xml" relativeToChangelogFile="true"/>
-  <include file="business/diagnosed_disease_or_medicine.xml" relativeToChangelogFile="true"/>
-  <include file="system/my-user-jamatkhana.xml" relativeToChangelogFile="true" />
+  <include file="business/disability.xml" relativeToChangelogFile="true"/>
+  <include file="business/disease.xml" relativeToChangelogFile="true"/>
+  <include file="business/health_facility.xml" relativeToChangelogFile="true"/>
+  <include file="business/disease_diagnosed.xml" relativeToChangelogFile="true"/>
+  <include file="business/health_facility_accessed.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

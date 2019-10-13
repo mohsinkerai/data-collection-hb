@@ -41,7 +41,7 @@
         </div>
         <div class="form-group">
           <label for="cnic">CNIC</label>
-          <input type="text" required="true" class="form-control" th:field="*{cnic}" pattern="^(\d){5}-\d{7}-\d{1}$"
+          <input type="text" required="true" class="form-control" th:field="*{cnic}" pattern="^(\d){5}-\d{7}-\d{1}$" placeholder="12345-1234567-1"
                  id="cnic" title="This is an error message" data-error="CNIC should be of format 12345-1234567-1"/>
           <p class="text-danger" th:if="${#fields.hasErrors('cnic')}"
              th:errors="*{cnic}"></p>
@@ -76,6 +76,12 @@
           <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
+          <label for="contactNumber">Household Member Count</label>
+          <input type="number" required="true" class="form-control" th:field="*{houseHoldMembersCount}" id="houseHoldMembersCount"/>
+          <p class="text-danger" th:if="${#fields.hasErrors('houseHoldMembersCount')}" th:errors="*{houseHoldMembersCount}"></p>
+          <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
           <label for="jk">Jamatkhana</label>
           <select th:field="*{jamatkhana}" id="jk" class="form-control">
             <option th:each="jamatkhana : ${jks}"
@@ -86,117 +92,73 @@
           <p class="text-danger" th:if="${#fields.hasErrors('jamatkhana')}"
              th:errors="*{jamatkhana}"></p>
         </div>
+
         <div class="form-group">
-          <label for="followingVaccinations">Do you have under 5 year children in your family? if yes, are there following basic vaccinations complete?</label>
-          <select th:field="*{followingVaccinations}" id="followingVaccinations" class="form-control">
-            <option value="1">Yes</option>
+          <label for="visitedDoctorForCheckup">In the last 12 months have you visited doctor / hospital for medical checkup?</label>
+          <select th:field="*{visitedDoctorForCheckup}" id="visitedDoctorForCheckup" class="form-control">
             <option value="0">No</option>
-            <option value="-1">No one less than 5 years</option>
+            <option value="1">Yes</option>
           </select>
-          <p class="text-danger" th:if="${#fields.hasErrors('followingVaccinations')}"
-             th:errors="*{followingVaccinations}"></p>
+          <p class="text-danger" th:if="${#fields.hasErrors('visitedDoctorForCheckup')}"
+             th:errors="*{visitedDoctorForCheckup}"></p>
         </div>
 
         <div class="form-group">
-          <label>In the last 12 months have you visited doctor / hospital for medical checkup?, If yes, Type of facility accessed?</label>
-          <div class="checkbox">
-            <label for="AKUH"><input id="AKUH" type="checkbox" value="AKUH" name="visitedDoctorRecently" th:checked="${#sets.contains(data.visitedDoctorRecently,'AKUH')}" /> AKUH
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="AKHSP"><input id="AKHSP" type="checkbox" value="AKHSP" name="visitedDoctorRecently" th:checked="${#sets.contains(data.visitedDoctorRecently,'AKHSP')}" /> AKHSP
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="Government"><input id="Government" type="checkbox" value="Government" name="visitedDoctorRecently" th:checked="${#sets.contains(data.visitedDoctorRecently,'Government')}" /> Government
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="Private"><input id="Private" type="checkbox" value="Private" name="visitedDoctorRecently" th:checked="${#sets.contains(data.visitedDoctorRecently,'Private')}" /> Private
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="Others"><input id="Others" type="checkbox" value="Others" name="visitedDoctorRecently" th:checked="${#sets.contains(data.visitedDoctorRecently,'Others')}" /> Others
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Have you been diagnosed or prescribed medicine for any disease?</label>
-          <div class="checkbox">
-            <label for="HBP"><input id="HBP" type="checkbox" value="HBP" name="diagnosedDiseaseOrMedicine" th:checked="${#sets.contains(data.diagnosedDiseaseOrMedicine,'HBP')}" /> High blood pressure
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="SUG"><input id="SUG" type="checkbox" value="SUG" name="diagnosedDiseaseOrMedicine" th:checked="${#sets.contains(data.diagnosedDiseaseOrMedicine,'SUG')}" /> High Sugar
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="CHO"><input id="CHO" type="checkbox" value="CHO" name="diagnosedDiseaseOrMedicine" th:checked="${#sets.contains(data.diagnosedDiseaseOrMedicine,'CHO')}" /> Cholestrol
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="PIB"><input id="PIB" type="checkbox" value="PIB" name="diagnosedDiseaseOrMedicine" th:checked="${#sets.contains(data.diagnosedDiseaseOrMedicine,'PIB')}" /> Pain in bones
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="CAN"><input id="CAN" type="checkbox" value="CAN" name="diagnosedDiseaseOrMedicine" th:checked="${#sets.contains(data.diagnosedDiseaseOrMedicine,'CAN')}" /> Cancer
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="OTH"><input id="OTH" type="checkbox" value="OTH" name="diagnosedDiseaseOrMedicine" th:checked="${#sets.contains(data.diagnosedDiseaseOrMedicine,'OTH')}" /> Others
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Do you have access to health insurance? If yes, From where:</label>
-          <div class="checkbox">
-            <label for="NJI"><input id="NJI" type="checkbox" value="NJI" name="currentHealthInsurance" th:checked="${#sets.contains(data.currentHealthInsurance,'NJI')}" /> NJI
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="EFU"><input id="EFU" type="checkbox" value="EFU" name="currentHealthInsurance" th:checked="${#sets.contains(data.currentHealthInsurance,'EFU')}" /> EFU
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="SIC"><input id="SIC" type="checkbox" value="SIC" name="currentHealthInsurance" th:checked="${#sets.contains(data.currentHealthInsurance,'SIC')}" /> Sehat insaf card
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="JLI"><input id="JLI" type="checkbox" value="JLI" name="currentHealthInsurance" th:checked="${#sets.contains(data.currentHealthInsurance,'JLI')}" /> JLI
-            </label>
-          </div>
-          <div class="checkbox">
-            <label for="OTH"><input id="OTH" type="checkbox" value="OTH" name="currentHealthInsurance" th:checked="${#sets.contains(data.currentHealthInsurance,'OTH')}" /> Others
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="daysEatingOutsideFood">How many day in a week do you eat food from outside / resturants?</label>
-          <select th:field="*{daysEatingOutsideFood}" id="daysEatingOutsideFood" class="form-control">
-            <option value="0">Less than once a week</option>
-            <option value="1">Once a week</option>
-            <option value="2">Twice a week</option>
-            <option value="3">Thrice a week</option>
-            <option value="4">More than Thrice a week</option>
+          <label for="insuranceCoverage">Do you have health insurance coverage?</label>
+          <select th:field="*{insuranceCoverage}" id="insuranceCoverage" class="form-control">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
           </select>
-          <p class="text-danger" th:if="${#fields.hasErrors('daysEatingOutsideFood')}"
-             th:errors="*{daysEatingOutsideFood}"></p>
+          <p class="text-danger" th:if="${#fields.hasErrors('insuranceCoverage')}"
+             th:errors="*{insuranceCoverage}"></p>
         </div>
         <div class="form-group">
-          <label for="hoursAWeekYouExercise">How many hours in a week do you exercise?</label>
-          <select th:field="*{hoursAWeekYouExercise}" id="hoursAWeekYouExercise" class="form-control">
-            <option value="-1">Never</option>
-            <option value="0">Less than an hour</option>
-            <option value="1">1 Hour</option>
-            <option value="2">2 Hours</option>
-            <option value="3">3 Hours</option>
-            <option value="4">More than 3 Hours</option>
+          <label for="selfInsuranceCoverage">Do you have SELF health insurance coverage?</label>
+          <select th:field="*{selfInsuranceCoverage}" id="selfInsuranceCoverage" class="form-control">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
           </select>
-          <p class="text-danger" th:if="${#fields.hasErrors('hoursAWeekYouExercise')}"
-             th:errors="*{hoursAWeekYouExercise}"></p>
+          <p class="text-danger" th:if="${#fields.hasErrors('selfInsuranceCoverage')}"
+             th:errors="*{selfInsuranceCoverage}"></p>
+        </div>
+        <div class="form-group">
+          <label for="employerInsuranceCoverage">Do you have EMPLOYER health insurance coverage?</label>
+          <select th:field="*{employerInsuranceCoverage}" id="employerInsuranceCoverage" class="form-control">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+          <p class="text-danger" th:if="${#fields.hasErrors('employerInsuranceCoverage')}"
+             th:errors="*{employerInsuranceCoverage}"></p>
+        </div>
+
+        <div class="form-group">
+          <label>Do you have any of following disabilities?</label>
+          <div class="checkbox">
+            <label for="BLIND"><input id="BLIND" type="checkbox" value="BLIND" name="disability" th:checked="${#sets.contains(data.disability,'BLIND')}" /> Blindness
+            </label>
+          </div>
+          <div class="checkbox">
+            <label for="HEARING"><input id="HEARING" type="checkbox" value="HEARING" name="disability" th:checked="${#sets.contains(data.disability,'HEARING')}" /> Hearing Difficulty
+            </label>
+          </div>
+          <div class="checkbox">
+            <label for="AMPUTATION"><input id="AMPUTATION" type="checkbox" value="AMPUTATION" name="disability" th:checked="${#sets.contains(data.disability,'AMPUTATION')}" /> Amputation
+            </label>
+          </div>
+          <div class="checkbox">
+            <label for="OTHER"><input id="OTHER" type="checkbox" value="OTHER" name="disability" th:checked="${#sets.contains(data.disability,'OTHER')}" /> Others
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="smoke">Do you smoke?</label>
+          <select th:field="*{smoke}" id="smoke" class="form-control">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+          <p class="text-danger" th:if="${#fields.hasErrors('smoke')}"
+             th:errors="*{smoke}"></p>
         </div>
       </div>
       <div class="box-footer">

@@ -28,15 +28,15 @@
       <column name="contact_number" type="varchar(255)">
         <constraints nullable="true"/>
       </column>
-      <column name="following_vaccinations" type="int">
-        <constraints nullable="false"/>
-      </column>
-      <column name="days_eating_outside_food" type="int">
-        <constraints nullable="false"/>
-      </column>
-      <column name="hours_a_week_you_exercise" type="int">
-        <constraints nullable="false"/>
-      </column>
+      <column name="house_hold_members_count" type="int" />
+      <column name="created_date" type="date"></column>
+      <column name="uuid" type="varchar(255)"></column>
+      <column name="visited_doctor_for_checkup" type="int" remarks="In the last 12 months have you visited doctor / hospital for medical checkup?"></column>
+      <column name="insurance_coverage" type="int" remarks="Do you have health insurance coverage?"></column>
+      <column name="self_insurance_coverage" type="int" remarks="Do you have health insurance coverage?"></column>
+      <column name="employer_insurance_coverage" type="int" remarks="Do you have health insurance coverage?"></column>
+      <column name="other_medical_facility_accessed" type="varchar(300)" remarks="Do you have health insurance coverage?"></column>
+      <column name="smoke" type="int" remarks="Do you smoke?"></column>
 
       <!--AUDIT COLUMN-->
       <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_on" type="datetime">
@@ -60,15 +60,5 @@
     <addForeignKeyConstraint baseTableName="person" baseColumnNames="jamatkhana_id"
       constraintName="customer_jamatkhana_id_fk"
       referencedTableName="jamatkhana" referencedColumnNames="id"/>
-  </changeSet>
-  <changeSet id="person-03" author="mohsin.kerai">
-    <addColumn tableName="person">
-      <column name="created_date" type="date"></column>
-    </addColumn>
-  </changeSet>
-  <changeSet id="person-04" author="mohsin.kerai">
-    <addColumn tableName="person">
-      <column name="uuid" type="varchar(255)"></column>
-    </addColumn>
   </changeSet>
 </databaseChangeLog>
