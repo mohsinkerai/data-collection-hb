@@ -104,6 +104,33 @@
         </div>
 
         <div class="form-group">
+          <label>If yes, type of facility accessed? (Multiple Selection)</label>
+          <div class="checkbox" th:each="hf : ${healthFacilities}">
+            <label th:for="${hf.name}">
+              <input th:id="${hf.name}" type="checkbox" th:checked="${#sets.contains(data.healthFacilities,hf)}" name="healthFacilities" th:value="${hf.id}">
+              <span th:text="${hf.name}"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="otherMedicalFacilityAccessed">If Other Medical Facilities Accessed</label>
+          <input type="text" class="form-control" th:field="*{otherMedicalFacilityAccessed}" id="otherMedicalFacilityAccessed" maxlength="15" data-error="otherMedicalFacilityAccessed should be between 0-15"/>
+          <p class="text-danger" th:if="${#fields.hasErrors('otherMedicalFacilityAccessed')}" th:errors="*{otherMedicalFacilityAccessed}"></p>
+          <div class="help-block with-errors"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Have you been diagnosed, hospitalized or prescribed medicine for any disease? (Tick where appropriate)</label>
+          <div class="checkbox" th:each="ds : ${diseases}">
+            <label th:for="${ds.name}">
+              <input th:id="${ds.name}" type="checkbox" th:checked="${#sets.contains(data.diseases,ds)}" name="diseases" th:value="${ds.id}">
+              <span th:text="${ds.name}"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="insuranceCoverage">Do you have health insurance coverage?</label>
           <select th:field="*{insuranceCoverage}" id="insuranceCoverage" class="form-control">
             <option value="0">No</option>

@@ -2,7 +2,7 @@
   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-  <changeSet id="autoIncrement-01" author="mohsin.kerai">
+  <changeSet id="jamatkhana-01" author="mohsin.kerai">
     <createTable remarks="Table to Store Jamatkhana Name for FK"
       tableName="jamatkhana">
       <column autoIncrement="true" name="id" type="bigint">
@@ -27,5 +27,13 @@
         <constraints nullable="true" unique="false"/>
       </column>
     </createTable>
+  </changeSet>
+  <changeSet id="jamatkhana-02" author="mohsin.kerai">
+    <insert tableName="jamatkhana">
+      <column name="name" value="Karimabad" />
+    </insert>
+    <insert tableName="jamatkhana">
+      <column name="name" value="Darkhana" />
+    </insert>
   </changeSet>
 </databaseChangeLog>

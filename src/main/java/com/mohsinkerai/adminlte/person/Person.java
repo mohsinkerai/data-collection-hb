@@ -2,24 +2,23 @@ package com.mohsinkerai.adminlte.person;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mohsinkerai.adminlte.base.BaseEntity;
 import com.mohsinkerai.adminlte.config.ProjectConstant;
 import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.List;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import com.mohsinkerai.adminlte.lookups.disease.Disease;
+import com.mohsinkerai.adminlte.lookups.health_facility.HealthFacility;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-
-import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -33,11 +32,24 @@ public class Person extends BaseEntity {
   private String contactNumber;
   private int houseHoldMembersCount;
 
-  // Do you have any of the following disabilities?
-  @ElementCollection
-  @CollectionTable(name="disability", joinColumns=@JoinColumn(name="person_id"))
-  @Column(name = "disability")
-  private List<String> disability = Lists.newArrayList();
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(
+    name = "health_facility_accessed",
+    joinColumns = @JoinColumn(name = "health_facility_id"),
+    inverseJoinColumns = @JoinColumn(name = "person_id")
+  )
+  private Set<HealthFacility> healthFacilities = Sets.newHashSet();
+
+  @Size(min = 0, max = 15)
+  private String otherMedicalFacilityAccessed;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(
+    name = "disease_diagnosed",
+    joinColumns = @JoinColumn(name = "disease_id"),
+    inverseJoinColumns = @JoinColumn(name = "person_id")
+  )
+  private Set<Disease> diseases = Sets.newHashSet();
 
   @Max(1)
   @Min(0)
@@ -64,8 +76,13 @@ public class Person extends BaseEntity {
   // Employer Covered Insurance
   private int employerInsuranceCoverage;
 
-  @Size(min = 0, max = 15)
-  private String otherMedicalFacilityAccessed;
+  // Do you have any of the following disabilities?
+  @ElementCollection
+  @CollectionTable(name = "disability", joinColumns = @JoinColumn(name = "person_id"))
+  @Column(name = "disability")
+  private List<String> disability = Lists.newArrayList();
+
+  private String otherDisability;
 
   @ManyToOne
   @JoinColumn(name = "jamatkhana_id")

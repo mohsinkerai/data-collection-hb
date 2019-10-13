@@ -2,8 +2,10 @@ package com.mohsinkerai.adminlte.person;
 
 import com.google.common.collect.ImmutableMap;
 import com.mohsinkerai.adminlte.base.SimpleBaseController;
-import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
-import com.mohsinkerai.adminlte.jamatkhana.JamatkhanaService;
+import com.mohsinkerai.adminlte.lookups.disease.Disease;
+import com.mohsinkerai.adminlte.lookups.disease.DiseaseService;
+import com.mohsinkerai.adminlte.lookups.health_facility.HealthFacilityController;
+import com.mohsinkerai.adminlte.lookups.health_facility.HealthFacilityService;
 import com.mohsinkerai.adminlte.users.MyUser;
 import com.mohsinkerai.adminlte.users.MyUserService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,18 +26,21 @@ public class PersonController extends SimpleBaseController<Person> {
 
   public static final String URL_PATH = "person";
 
-  private final JamatkhanaService jamatkhanaService;
   private final MyUserService myUserService;
   private final PersonService personService;
+  private final DiseaseService diseaseService;
+  private final HealthFacilityService healthFacilityService;
 
   protected PersonController(
     PersonService personService,
-    JamatkhanaService jamatkhanaService,
-    MyUserService myUserService) {
+    MyUserService myUserService,
+    DiseaseService diseaseService,
+    HealthFacilityService healthFacilityService) {
     super(personService);
-    this.jamatkhanaService = jamatkhanaService;
+    this.healthFacilityService = healthFacilityService;
     this.myUserService = myUserService;
     this.personService = personService;
+    this.diseaseService = diseaseService;
   }
 
   @Override
@@ -56,8 +61,8 @@ public class PersonController extends SimpleBaseController<Person> {
   @Override
   protected Map<String, Object> getAttributes() {
     MyUser currentUser = myUserService.getCurrentLoggedInUser();
-    List<Jamatkhana> jamatkhanas = jamatkhanaService.findAll();
-    return ImmutableMap.of("jks", currentUser.getJamatkhanas());
+    List<Disease> diseases = diseaseService.findAll();
+    return ImmutableMap.of("jks", currentUser.getJamatkhanas(), "diseases", diseases, "healthFacilities", healthFacilityService.findAll());
   }
 
   @Override
