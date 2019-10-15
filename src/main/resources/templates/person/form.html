@@ -65,19 +65,19 @@
         </div>
         <div class="form-group">
           <label for="residentialAddress">Residential Address</label>
-          <input type="text" required="true" class="form-control" th:field="*{residentialAddress}" id="residentialAddress" maxlength="255" data-error="Address Length should be Between 0-255"/>
+          <input type="text" placeholder="Residential Addressf" required="true" class="form-control" th:field="*{residentialAddress}" id="residentialAddress" maxlength="255" data-error="Address Length should be Between 0-255"/>
           <p class="text-danger" th:if="${#fields.hasErrors('residentialAddress')}" th:errors="*{residentialAddress}"></p>
           <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
           <label for="contactNumber">Contact Number</label>
-          <input type="text" required="true" class="form-control" th:field="*{contactNumber}" id="contactNumber" pattern="^\d{4}-\d{7}|\d{3}-\d{8}$" data-error="Contact Number should be of format 1234-1234567 or 123-12345678"/>
+          <input type="text" placeholder="Contact Number" required="true" class="form-control" th:field="*{contactNumber}" id="contactNumber" pattern="^\d{4}-\d{7}|\d{3}-\d{8}$" data-error="Contact Number should be of format 1234-1234567 or 123-12345678"/>
           <p class="text-danger" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></p>
           <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
           <label for="contactNumber">Household Member Count</label>
-          <input type="number" required="true" class="form-control" th:field="*{houseHoldMembersCount}" id="houseHoldMembersCount"/>
+          <input type="number" placeholder="Household Member Count" required="true" class="form-control" th:field="*{houseHoldMembersCount}" id="houseHoldMembersCount"/>
           <p class="text-danger" th:if="${#fields.hasErrors('houseHoldMembersCount')}" th:errors="*{houseHoldMembersCount}"></p>
           <div class="help-block with-errors"></div>
         </div>
@@ -115,7 +115,7 @@
 
         <div class="form-group">
           <label for="otherMedicalFacilityAccessed">If Other Medical Facilities Accessed</label>
-          <input type="text" class="form-control" th:field="*{otherMedicalFacilityAccessed}" id="otherMedicalFacilityAccessed" maxlength="15" data-error="otherMedicalFacilityAccessed should be between 0-15"/>
+          <input type="text" placeholder="Other Medical Facilities Accessed" class="form-control" th:field="*{otherMedicalFacilityAccessed}" id="otherMedicalFacilityAccessed" maxlength="15" data-error="otherMedicalFacilityAccessed should be between 0-15"/>
           <p class="text-danger" th:if="${#fields.hasErrors('otherMedicalFacilityAccessed')}" th:errors="*{otherMedicalFacilityAccessed}"></p>
           <div class="help-block with-errors"></div>
         </div>
@@ -176,6 +176,15 @@
             <label for="OTHER"><input id="OTHER" type="checkbox" value="OTHER" name="disability" th:checked="${#sets.contains(data.disability,'OTHER')}" /> Others
             </label>
           </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Other Disability</label>
+          <input type="text" required="true" class="form-control" th:field="*{otherDisability}" maxlength="20" minlength="4"
+                 placeholder="Other Disability" id="name" data-error="Name should be between 4 and 20 characters."/>
+          <p class="text-danger" th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"></p>
+          <div class="help-block with-errors"></div>
         </div>
 
         <div class="form-group">
