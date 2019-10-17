@@ -1,5 +1,6 @@
 package com.mohsinkerai.adminlte.users;
 
+import com.google.errorprone.annotations.concurrent.LazyInit;
 import com.mohsinkerai.adminlte.base.SimpleBaseService;
 import com.mohsinkerai.adminlte.users.authority.MyAuthority;
 import com.mohsinkerai.adminlte.users.authority.MyAuthorityService;
@@ -11,6 +12,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
