@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.mohsinkerai</groupId>
@@ -26,7 +26,7 @@
     <jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
     <jasper-barbecue.version>1.5-beta1</jasper-barbecue.version>
     <jasperreports-functions.version>6.9.0</jasperreports-functions.version>
-    <thymeleaf-spring-data-dialect.version>3.3.1</thymeleaf-spring-data-dialect.version>
+    <thymeleaf-spring-data-dialect.version>3.4.0</thymeleaf-spring-data-dialect.version>
   </properties>
 
   <dependencies>
@@ -95,6 +95,12 @@
     <dependency>
       <groupId>org.springframework.session</groupId>
       <artifactId>spring-session-jdbc</artifactId>
+    </dependency>
+
+    <!--Other Spring Dependencies-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-logging</artifactId>
     </dependency>
 
     <!--Jasper Dependencies-->

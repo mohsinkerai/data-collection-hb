@@ -1,7 +1,9 @@
 spring:
+  application:
+    name: hbp-card-portal
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/data_collection_hb2?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/data_collection_hb3?createDatabaseIfNotExist=true
     username: root
     password:
     tomcat:
@@ -21,7 +23,6 @@ spring:
     cache: false
     check-template-location: true
     prefix: file:./src/main/resources/templates/
-#  session.store-type: none
   session:
     store-type: jdbc
     jdbc:
@@ -32,3 +33,15 @@ server:
   servlet:
     session:
       timeout: 120m
+  tomcat:
+    accesslog:
+      max-logs: 10
+      enabled: true
+      directory: ./
+    basedir: logs
+logging:
+  file: logs/app.log
+  file.name: application-spring.log
+  file.path: /var/log
+  file.max-history: 10
+  file.max-size: 1MB
