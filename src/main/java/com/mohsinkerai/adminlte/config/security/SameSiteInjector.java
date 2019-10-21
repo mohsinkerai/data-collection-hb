@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class SameSiteInjectorListener {
+public class SameSiteInjector {
 
   private final ApplicationContext applicationContext;
 

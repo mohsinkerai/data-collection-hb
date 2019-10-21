@@ -5,6 +5,67 @@ Application with SpringBoot and the AdminLTE 2 template to facilitate developmen
 
 This project is forked from hendisantika/spring-boot-adminlte.git and modified local usage.
 
+Deployment Instructions
+---
+This jar is marked as executable true.
+
+- Copy it to remote server (Linux)
+- Create a file called /etc/systemd/system/hbp.service with following contents:
+```
+[Unit]
+Description=ROT13 demo service
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=centos
+ExecStart=/{path-to-app}/app.jar
+
+[Install]
+WantedBy=multi-user.target
+```
+- Start the Service `sudo systemctl start hbp`
+- Automatically get it to start on boot `sudo systemctl enable hbp`
+
+
+You will need to:
+- Replace `{path-to-app}` and go with actual path of jar
+- set your actual username after `User=`
+- Change file name `hbp` to use actual name for systemctl service you want.
+
+This will run your application on port 8080.
+
+#### Reverse Proxy
+Now you need reverse proxy to expose port 80 and hide actual implementation.
+
+- Use nginx for reverse proxy (sudo apt-get install nginx)
+- Create nginx configuration at `/etc/nginx/sites-available/hbp`
+```
+server {
+       	listen 80;
+       	listen [::]:80;
+
+	access_log /apps/logs/reverse-access.log;
+        error_log /apps/logs/reverse-error.log;
+       	#server_name example.com;
+
+       	location / {
+         	proxy_pass http://localhost:8080/;
+             	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+             	proxy_set_header X-Forwarded-Proto $scheme;
+             	proxy_set_header X-Forwarded-Port $server_port;
+        }
+}
+```
+- Add Configuration to Nginx (`sudo ln -s /etc/nginx/sites-available/hbp /etc/nginx/sites-enabled/hbp`)
+- Verify nginx (`sudo nginx -t`)
+- Reload nginx (`sudo service nginx reload`)
+
+#### Reference: 
+- `https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6`
+
 characteristics
 ---
 
