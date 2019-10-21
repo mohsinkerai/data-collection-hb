@@ -79,3 +79,5 @@ target/
 .project
 .settings
 deploy.sh
+.DS_Store
+logs

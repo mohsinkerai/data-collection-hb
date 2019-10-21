@@ -39,9 +39,12 @@
           <td th:text="${row.gender}"></td>
           <td th:text="${row.jamatkhana.name}"></td>
           <td>
-            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">edit</a>
-            <a sec:authorize="!hasAuthority('ADMIN')" th:if="${#temporals.createNow().minusDays(2).minusHours(4) < row.createdOn}" th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">edit</a> -
-            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">delete</a>
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}"><button class="btn btn-default">Edit</button></a>
+            <a sec:authorize="!hasAuthority('ADMIN')" th:if="${#temporals.createNow().minusDays(2).minusHours(4) < row.createdOn}" th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}"><button class="btn btn-default">Edit</button></a> -
+            <a th:href="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}">delete</a>
+            <form sec:authorize="hasAuthority('ADMIN')" th:object="${row}" th:action="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}" th:method="delete" style="display: inline">
+              <button class="btn btn-danger" style="cursor: pointer" onClick="form.submit();">Delete</button>
+            </form>
           </td>
         </tr>
       </table>

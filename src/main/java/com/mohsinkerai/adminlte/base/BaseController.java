@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,7 +94,8 @@ public abstract class BaseController<E extends BaseEntity, I extends Serializabl
     return "redirect:/" + urlPath();
   }
 
-  @RequestMapping("delete/{id}")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
   public String delete(@PathVariable I id) {
 
     baseService.delete(id);
