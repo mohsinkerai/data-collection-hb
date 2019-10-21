@@ -9,6 +9,7 @@ import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
 import com.mohsinkerai.adminlte.lookups.disease.Disease;
 import com.mohsinkerai.adminlte.lookups.health_facility.HealthFacility;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -35,8 +36,8 @@ public class Person extends BaseEntity {
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
     name = "health_facility_accessed",
-    joinColumns = @JoinColumn(name = "health_facility_id"),
-    inverseJoinColumns = @JoinColumn(name = "person_id")
+    joinColumns = @JoinColumn(name = "person_id"),
+    inverseJoinColumns = @JoinColumn(name = "health_facility_id")
   )
   private Set<HealthFacility> healthFacilities = Sets.newHashSet();
 
@@ -46,8 +47,8 @@ public class Person extends BaseEntity {
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
     name = "disease_diagnosed",
-    joinColumns = @JoinColumn(name = "disease_id"),
-    inverseJoinColumns = @JoinColumn(name = "person_id")
+    joinColumns = @JoinColumn(name = "person_id"),
+    inverseJoinColumns = @JoinColumn(name = "disease_id")
   )
   private Set<Disease> diseases = Sets.newHashSet();
 
