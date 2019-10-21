@@ -33,8 +33,8 @@
           <td th:text="${row.name}"></td>
           <td>
             <a th:href="@{/{urlPath}/edit/{rowId}(urlPath=${urlPath}, rowId=${row.id})}"><button class="btn btn-default">Edit</button></a> -
-            <form th:object="${row}" th:action="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}" th:method="delete" style="display: inline">
-              <button class="btn btn-danger" style="cursor: pointer" onClick="form.submit();">delete</button>
+            <form th:object="${row}" th:action="@{/{urlPath}/delete/{rowId}(urlPath=${urlPath}, rowId=${row.id})}" th:method="delete" style="display: inline" onsubmit="return (confirm('Sure your want to delete this entry?'))">
+              <input class="btn btn-danger" style="cursor: pointer" type="submit" value="Delete" />
             </form>
           </td>
         </tr>

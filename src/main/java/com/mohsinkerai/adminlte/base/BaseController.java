@@ -2,6 +2,8 @@ package com.mohsinkerai.adminlte.base;
 
 import java.io.Serializable;
 import java.util.Map;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Slf4j
 public abstract class BaseController<E extends BaseEntity, I extends Serializable> {
 
   protected static final int PAGE_SIZE = 10;
@@ -97,7 +100,7 @@ public abstract class BaseController<E extends BaseEntity, I extends Serializabl
   @PreAuthorize("hasAuthority('ADMIN')")
   @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
   public String delete(@PathVariable I id) {
-
+    log.info("deleting form method {} urlPath {}", id, urlPath());
     baseService.delete(id);
     return "redirect:/" + urlPath();
   }
