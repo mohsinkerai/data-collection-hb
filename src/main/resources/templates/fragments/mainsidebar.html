@@ -17,6 +17,7 @@
         <li sec:authorize="hasAuthority('ADMIN')" th:classappend="${#httpServletRequest.requestURI.startsWith('/person')? 'active':''}"><a th:href="@{/person}"><i class="fa fa-circle-o"></i> Person</a></li>
         <li sec:authorize="!hasAuthority('ADMIN')" th:classappend="${#httpServletRequest.requestURI.startsWith('/person')? 'active':''}"><a th:href="@{/person/jk}"><i class="fa fa-circle-o"></i> Person JK</a></li>
         <li><a th:href="@{/jamatkhana}" sec:authorize="hasAuthority('ADMIN')"><i class="fa fa-circle-o"></i>Jamatkhana</a></li>
+        <li th:classappend="${#httpServletRequest.requestURI.startsWith('/person/add')? 'active':''}"><a th:href="@{/person/add}"><i class="fa fa-circle-o"></i>Add Person</a></li>
       </ul>
     </li>
     <li class="treeview" th:classappend="${#httpServletRequest.requestURI.startsWith('/lookup')? 'active':''}" sec:authorize="hasAuthority('ADMIN')" >
@@ -36,8 +37,9 @@
         <span>Reports</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
-      <ul class="treeview-menu">
+      <ul class="treeview-menu" sec:authorize="hasAuthority('LEAD')">
         <li><a th:href="@{/report/forms/by-username}"><i class="fa fa-circle-o"></i>By Username and Date</a></li>
+        <li><a th:href="@{/report/forms/by-jamatkhana}"><i class="fa fa-circle-o"></i>By Jamatkhana Summary</a></li>
       </ul>
     </li>
     <li class="treeview"

@@ -2,17 +2,16 @@ package com.mohsinkerai.adminlte.person;
 
 import com.mohsinkerai.adminlte.base.SimpleBaseService;
 import com.mohsinkerai.adminlte.jamatkhana.Jamatkhana;
+import com.mohsinkerai.adminlte.report.dto.JamatkhanaSummaryDto;
 import com.mohsinkerai.adminlte.users.MyUser;
 import com.mohsinkerai.adminlte.users.MyUserService;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService extends SimpleBaseService<Person> {
@@ -42,26 +41,27 @@ public class PersonService extends SimpleBaseService<Person> {
     return super.save(person);
   }
 
-
-
   public boolean isPersonEditAllowed(Long personId) {
     Person person = findOne(personId)
       .orElseThrow(() -> new RuntimeException(String.format("Id %d Doesn't Exist", personId)));
     MyUser currentLoggedInUser = myUserService.getCurrentLoggedInUser();
-    boolean admin = isAdmin(currentLoggedInUser);
-    return admin || ChronoUnit.DAYS.between(person.getCreatedDate(), LocalDate.now()) < 2;
+    return ChronoUnit.DAYS.between(person.getCreatedDate(), LocalDate.now()) < 2 || hasRole(currentLoggedInUser, "ADMIN") || hasRole(currentLoggedInUser, "LEAD");
   }
 
   public List<Person> findByJamatkhanaIn(Collection<Jamatkhana> jamatkhanas) {
     return personRepository.findByJamatkhanaIn(jamatkhanas);
   }
 
-  private boolean isAdmin(MyUser currentUser) {
+  public List<JamatkhanaSummaryDto> findByJamatkhanaAndDateBetween(Jamatkhana jamatkhana, LocalDate fromCreatedDate, LocalDate toCreatedDate) {
+    return personRepository.findByJamatkhanaAndDateBetween(jamatkhana.getId(), fromCreatedDate, toCreatedDate);
+  }
+
+  private boolean hasRole(MyUser currentUser, String role) {
     return currentUser.getAuthorities()
       .stream()
       .map(GrantedAuthority::getAuthority)
       .map(String::toLowerCase)
-      .filter(s -> s.equals("ADMIN"))
+      .filter(s -> s.equals(role))
       .findAny()
       .isPresent();
   }
