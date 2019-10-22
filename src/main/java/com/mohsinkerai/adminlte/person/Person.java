@@ -10,6 +10,7 @@ import com.mohsinkerai.adminlte.lookups.disease.Disease;
 import com.mohsinkerai.adminlte.lookups.health_facility.HealthFacility;
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -67,15 +68,13 @@ public class Person extends BaseEntity {
   // Insurance Coverage
   private int insuranceCoverage;
 
-  @Max(1)
-  @Min(0)
   // Self Covered Insurance
-  private int selfInsuranceCoverage;
+  @Type(type = "org.hibernate.type.NumericBooleanType")
+  private boolean selfInsuranceCoverage;
 
-  @Max(1)
-  @Min(0)
   // Employer Covered Insurance
-  private int employerInsuranceCoverage;
+  @Type(type = "org.hibernate.type.NumericBooleanType")
+  private boolean employerInsuranceCoverage;
 
   // Do you have any of the following disabilities?
   @ElementCollection
