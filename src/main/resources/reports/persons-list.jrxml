@@ -16,8 +16,8 @@
 	<field name="gender" class="java.lang.String">
 		<fieldDescription><![CDATA[gender]]></fieldDescription>
 	</field>
-	<field name="contactNumber" class="java.lang.String">
-		<fieldDescription><![CDATA[contactNumber]]></fieldDescription>
+	<field name="dateOfBirth" class="java.sql.Date">
+		<fieldDescription><![CDATA[dateOfBirth]]></fieldDescription>
 	</field>
 	<field name="jamatkhana" class="java.lang.String">
 		<fieldDescription><![CDATA[jamatkhana.name]]></fieldDescription>
@@ -113,7 +113,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Contact #]]></text>
+				<text><![CDATA[Age]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="444" y="0" width="111" height="20" uuid="600d0473-f0ed-42c4-a564-a9d7e9b1e278">
@@ -184,7 +184,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{contactNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[YEARS($F{dateOfBirth},TODAY( ))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="444" y="0" width="111" height="15" uuid="086d8733-6782-4ff4-8fc8-df56f2848417">
