@@ -120,6 +120,8 @@ public class PersonController extends SimpleBaseController<Person> {
       model.addAttribute("data", person);
       model.addAttribute("cnicError", "CNIC Already Exist with JK Name " + personExist.getJamatkhana().getName() + " and Person Name " + personExist.getPersonName());
       model.addAttribute("org.springframework.validation.BindingResult.data", bindingResult);
+      model.addAttribute("urlPath", urlPath());
+      model.addAllAttributes(getAttributes());
       return viewPath() + "/form";
     }
     super.save(person, bindingResult, model, ra);
