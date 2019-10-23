@@ -110,8 +110,8 @@ public class PersonController extends SimpleBaseController<Person> {
   public String save(Person person, BindingResult bindingResult, Model model,
                      RedirectAttributes ra) {
     super.save(person, bindingResult, model, ra);
-    ra.addFlashAttribute("successFlash", String
-      .format("Successfully Saved Jamati Memeber with Name ==[%s]== and id ==[%d]==", person.getName(),
+    ra.addFlashAttribute("formSaved", String
+      .format("Successfully Saved Jamati Memeber with Name <b><mark>%s</mark></b> and id <mark><b>%d</b></mark>", person.getName(),
         person.getId()));
     return "redirect:/" + urlPath() + "/add";
   }
