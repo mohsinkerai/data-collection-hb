@@ -4,10 +4,10 @@ import com.google.common.collect.ImmutableMap;
 import com.mohsinkerai.adminlte.base.SimpleBaseController;
 import com.mohsinkerai.adminlte.lookups.disease.Disease;
 import com.mohsinkerai.adminlte.lookups.disease.DiseaseService;
-import com.mohsinkerai.adminlte.lookups.health_facility.HealthFacilityController;
 import com.mohsinkerai.adminlte.lookups.health_facility.HealthFacilityService;
 import com.mohsinkerai.adminlte.users.MyUser;
 import com.mohsinkerai.adminlte.users.MyUserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -65,6 +66,11 @@ public class PersonController extends SimpleBaseController<Person> {
     return ImmutableMap.of("jks", currentUser.getJamatkhanas(), "diseases", diseases, "healthFacilities", healthFacilityService.findAll());
   }
 
+  @RequestMapping(value = {"add/cnic", "cnic", "edit/cnic"})
+  public ResponseEntity<List<PersonShortDto>> findPersonWithThisCnic(@RequestParam String cnic) {
+    return ResponseEntity.ok(personService.findByCnic(cnic));
+  }
+
   @Override
   @PreAuthorize("hasAuthority('ADMIN')")
   public String delete(@PathVariable Long id) {
@@ -109,10 +115,22 @@ public class PersonController extends SimpleBaseController<Person> {
   @Override
   public String save(Person person, BindingResult bindingResult, Model model,
                      RedirectAttributes ra) {
+    PersonShortDto personExist = cnicExists(person);
+    if (personExist != null) {
+      model.addAttribute("data", person);
+      model.addAttribute("cnicError", "CNIC Already Exist with JK Name " + personExist.getJamatkhana().getName() + " and Person Name " + personExist.getPersonName());
+      model.addAttribute("org.springframework.validation.BindingResult.data", bindingResult);
+      return viewPath() + "/form";
+    }
     super.save(person, bindingResult, model, ra);
     ra.addFlashAttribute("formSaved", String
       .format("Successfully Saved Jamati Memeber with Name <b><mark>%s</mark></b> and id <mark><b>%d</b></mark>", person.getName(),
         person.getId()));
     return "redirect:/" + urlPath() + "/add";
+  }
+
+  private PersonShortDto cnicExists(Person person) {
+    List<PersonShortDto> persons = personService.findByCnic(person.getCnic());
+    return persons.stream().filter(p -> p.getId() != person.getId()).findFirst().orElse(null);
   }
 }

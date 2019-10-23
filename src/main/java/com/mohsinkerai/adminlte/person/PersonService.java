@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService extends SimpleBaseService<Person> {
@@ -54,6 +55,13 @@ public class PersonService extends SimpleBaseService<Person> {
 
   public List<JamatkhanaSummaryDto> findByJamatkhanaAndDateBetween(Jamatkhana jamatkhana, LocalDate fromCreatedDate, LocalDate toCreatedDate) {
     return personRepository.findByJamatkhanaAndDateBetween(jamatkhana.getId(), fromCreatedDate, toCreatedDate);
+  }
+
+  public List<PersonShortDto> findByCnic(String cnic) {
+    return personRepository.findByCnic(cnic)
+      .stream()
+      .map(p -> new PersonShortDto(p.getId(), p.getJamatkhana(), p.getName(), p.getCnic()))
+      .collect(Collectors.toList());
   }
 
   private boolean hasRole(MyUser currentUser, String role) {

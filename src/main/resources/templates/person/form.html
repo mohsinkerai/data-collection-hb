@@ -45,7 +45,10 @@
                  id="cnic" title="This is an error message" data-error="CNIC should be of format 12345-1234567-1"/>
           <p class="text-danger" th:if="${#fields.hasErrors('cnic')}"
              th:errors="*{cnic}"></p>
+          <p class="text-danger" th:if="${cnicError} != null"
+             th:text="${cnicError}"></p>
           <div class="help-block with-errors"></div>
+          <p class="text-danger" id="cnicErrorText" hidden="true"></p>
         </div>
         <div class="form-group">
           <label for="gender">Gender</label>
@@ -184,7 +187,7 @@
         </div>
       </div>
       <div class="box-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button id="submit" type="submit" class="btn btn-primary">Save</button>
       </div>
     </form>
   </div>
@@ -242,6 +245,47 @@
         $('#hic').show();
       } else {
         $('#hic').hide();
+      }
+    });
+
+    $("#cnic").on('blur', function() {
+      var e = $(this);
+      var cnicNumber = e.val();
+      var pattern = e.attr('pattern');
+      var regex = new RegExp(pattern);
+      var isCnicValid = regex.test(cnicNumber);
+      if (isCnicValid) {
+        $.ajax({
+          url: "cnic",
+          type: "get", //send it through get method
+          data: {
+            cnic: cnicNumber
+          },
+          success: function(response) {
+            var size = response.length;
+            var sameId = 0;
+            var documentId = $("#id").val();
+            var person;
+            response.forEach(function(item) {
+              if(item.id.toString() === documentId) {
+                sameId++;
+              } else {
+                person = item;
+              }
+            });
+
+            var submitButton = $("#submit");
+            var cnicErrorText = $("#cnicErrorText")
+            if(size-sameId > 0) {
+              submitButton.attr('disabled', true);
+              cnicErrorText.attr('hidden', false);
+              cnicErrorText.text("Person Exist with Form # " + person.id + " Name: " + person.personName + " Jamatkhana: " + person.jamatkhana.name);
+            } else {
+              submitButton.attr('disabled', false);
+              cnicErrorText.attr('hidden', true);
+            }
+          }
+        })
       }
     });
 
