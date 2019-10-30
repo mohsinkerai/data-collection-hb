@@ -50,7 +50,10 @@ public class ReportController {
   public String findFormsFilledByUsername(Model model) {
     UsernameAndDateDto dto = new UsernameAndDateDto(null, LocalDate.now(), LocalDate.now());
 
-    List<String> userNames = userService.findAll().stream().map(MyUser::getUsername)
+    List<String> userNames = userService
+      .findAll()
+      .stream()
+      .map(MyUser::getUsername)
       .collect(Collectors.toList());
 
     model.addAttribute("users", userNames);
@@ -121,6 +124,49 @@ public class ReportController {
 
     // Return Report Here
     byte[] bytes = jamatkhanaRegistrationReportGenerator.generatePDFReport(jamatkhanaSummary, Maps.newHashMap(params));
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_PDF);
+    headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + "persons-by-jamatkhana-on-time" + ".pdf");
+
+    return new HttpEntity<byte[]>(bytes, headers);
+  }
+
+  @GetMapping("forms/by-jamatkhana-list")
+  public String findFormsFilledByJamatkhanaList(Model model) {
+    JamatkhanaAndDateDto dto = new JamatkhanaAndDateDto(null, LocalDate.now(), LocalDate.now());
+
+    Set<Jamatkhana> jks = userService.getCurrentLoggedInUser().getJamatkhanas();
+
+    model.addAttribute("jks", jks);
+    model.addAttribute("data", dto);
+    model.addAttribute("urlPath", REPORT_CONTROLLER_NAME + "/forms/by-jamatkhana-list");
+
+    log.info("Dto is {}", dto);
+    return REPORT_CONTROLLER_NAME + "/by-jamatkhana";
+  }
+
+  @GetMapping("forms/by-jamatkhana-list/download")
+  public HttpEntity<byte[]> getFormsFilledByJamatkhanaList(JamatkhanaAndDateDto jamatkhanaAndDateDto, Model model)
+    throws JRException {
+    LocalDate fromDate = jamatkhanaAndDateDto.getFromDate();
+    LocalDate toDate = jamatkhanaAndDateDto.getToDate();
+    Jamatkhana jamatkhana = jamatkhanaAndDateDto.getJamatkhana();
+
+    if (!isJkAllowed(jamatkhana)) {
+      throw new RuntimeException("Jamatkhana you are tring to search is not allowed");
+    }
+
+    List<Person> persons = personService.findByJamatkhanaAndCreatedDateBetween(jamatkhana, fromDate, toDate);
+    log.info("Got DTO {}, persons {}", jamatkhanaAndDateDto, persons);
+
+    ImmutableMap<String, Object> params = ImmutableMap.of(
+      "REPORT_NAME", "Persons in " + jamatkhana,
+      "FROM_DATE", Date.valueOf(fromDate),
+      "TO_DATE", Date.valueOf(toDate));
+
+    // Return Report Here
+    byte[] bytes = personListReportGenerator.generatePDFReport(persons, Maps.newHashMap(params));
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_PDF);

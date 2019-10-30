@@ -64,6 +64,14 @@ public class PersonService extends SimpleBaseService<Person> {
     return personRepository.findByJamatkhanaAndDateBetween(jamatkhana.getId(), fromCreatedDate, toCreatedDate);
   }
 
+  public List<JamatkhanaSummaryDto> findBySummaryPerJamatkhanaBetween(LocalDate fromCreatedDate, LocalDate toCreatedDate) {
+    return personRepository.findBySummaryPerJamatkhanaBetween(fromCreatedDate, toCreatedDate);
+  }
+
+  public List<Person> findByJamatkhanaAndCreatedDateBetween(Jamatkhana jamatkhana, LocalDate fromCreatedDate, LocalDate toCreatedDate) {
+    return personRepository.findByJamatkhanaAndCreatedDateBetween(jamatkhana, fromCreatedDate, toCreatedDate);
+  }
+
   public List<PersonShortDto> findByCnic(String cnic) {
     return personRepository.findByCnic(cnic)
       .stream()

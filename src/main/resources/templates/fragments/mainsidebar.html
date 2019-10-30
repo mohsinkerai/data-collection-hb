@@ -38,8 +38,9 @@
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li><a th:href="@{/report/forms/by-username}"><i class="fa fa-circle-o"></i>By Username and Date</a></li>
         <li><a th:href="@{/report/forms/by-jamatkhana}"><i class="fa fa-circle-o"></i>By Jamatkhana Summary</a></li>
+        <li><a th:href="@{/report/forms/by-jamatkhana-list}"><i class="fa fa-circle-o"></i>By Jamatkhana and Date</a></li>
+        <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin/report/forms/summary}"><i class="fa fa-circle-o"></i>Summary By Date</a></li>
       </ul>
     </li>
     <li class="treeview"
