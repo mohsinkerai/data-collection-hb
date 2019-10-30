@@ -54,7 +54,7 @@ public class AdminReportController {
     model.addAttribute("urlPath", REPORT_CONTROLLER_NAME + "/forms/summary");
 
     log.info("Dto is {}", dto);
-    return "report/" + "/by-jamatkhana";
+    return "report/" + "by-jamatkhana";
   }
 
   @GetMapping("forms/summary/download")
