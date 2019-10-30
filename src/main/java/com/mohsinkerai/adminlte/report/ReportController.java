@@ -107,6 +107,10 @@ public class ReportController {
     LocalDate toDate = jamatkhanaAndDateDto.getToDate();
     Jamatkhana jamatkhana = jamatkhanaAndDateDto.getJamatkhana();
 
+    if (!isJkAllowed(jamatkhana)) {
+      throw new RuntimeException("Jamatkhana you are tring to search is not allowed");
+    }
+
     List<JamatkhanaSummaryDto> jamatkhanaSummary = personService
       .findByJamatkhanaAndDateBetween(jamatkhana, fromDate, toDate);
 
@@ -123,5 +127,13 @@ public class ReportController {
     headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + "persons-by-jamatkhana-on-time" + ".pdf");
 
     return new HttpEntity<byte[]>(bytes, headers);
+  }
+
+  private boolean isJkAllowed(Jamatkhana jamatkhana) {
+    return userService.getCurrentLoggedInUser()
+      .getJamatkhanas().stream()
+      .filter(jk -> jk.getName().equals(jamatkhana.getName()))
+      .findAny()
+      .isPresent();
   }
 }
