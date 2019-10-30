@@ -37,19 +37,26 @@
 					<textFieldExpression><![CDATA[$P{REPORT_NAME}]]></textFieldExpression>
 				</textField>
 				<textField pattern="MMM d, yyyy">
-					<reportElement x="310" y="0" width="108" height="20" uuid="aba31e38-0ea4-4f85-a129-a482d4c6c678"/>
+					<reportElement x="309" y="0" width="108" height="20" uuid="aba31e38-0ea4-4f85-a129-a482d4c6c678"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{FROM_DATE}]]></textFieldExpression>
 				</textField>
 				<textField pattern="MMM d, yyyy">
-					<reportElement x="430" y="0" width="124" height="20" uuid="dbeb1945-d131-4642-ae28-c5042f486be7"/>
+					<reportElement x="431" y="0" width="124" height="20" uuid="dbeb1945-d131-4642-ae28-c5042f486be7"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{TO_DATE}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="419" y="3" width="10" height="15" uuid="b135b6fb-ba74-49d7-a698-cce8d4ef2d08"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[-]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</pageHeader>
@@ -224,19 +231,20 @@
 				</graphicElement>
 			</rectangle>
 			<textField evaluationTime="Report">
-				<reportElement x="79" y="20" width="60" height="15" uuid="43488c0d-b3c0-4f27-8da5-b540ac158180"/>
+				<reportElement x="86" y="20" width="60" height="15" uuid="43488c0d-b3c0-4f27-8da5-b540ac158180"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="11" y="20" width="68" height="15" uuid="9d41cb1c-8d69-4c6e-9a2f-c0034391ffc2"/>
-				<textElement>
+				<reportElement x="11" y="20" width="74" height="15" uuid="9d41cb1c-8d69-4c6e-9a2f-c0034391ffc2"/>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Pages:]]></text>
 			</staticText>
 			<textField pattern="MMM d, yyyy h:mm:ss a z">
-				<reportElement x="180" y="20" width="150" height="15" uuid="56051ce6-559e-4a55-ae5e-907502445501"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="240" y="20" width="108" height="15" uuid="56051ce6-559e-4a55-ae5e-907502445501"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -249,6 +257,13 @@
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Records:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="20" width="80" height="15" uuid="99532734-804e-4369-9d2d-74b4621f52d1"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Generated On:]]></text>
 			</staticText>
 		</band>
 	</summary>

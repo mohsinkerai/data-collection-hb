@@ -126,7 +126,7 @@ public class PersonController extends SimpleBaseController<Person> {
     }
     super.save(person, bindingResult, model, ra);
     ra.addFlashAttribute("formSaved", String
-      .format("Successfully Saved Jamati Memeber with Name <b><mark>%s</mark></b> and id <mark><b>%d</b></mark>", person.getName(),
+      .format("Successfully Saved Jamati Memeber with Name <b><mark>%s</mark></b> and id <mark><b>%04d</b></mark>", person.getName(),
         person.getId()));
     return "redirect:/" + urlPath() + "/add";
   }

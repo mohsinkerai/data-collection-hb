@@ -39,6 +39,13 @@ public class PersonService extends SimpleBaseService<Person> {
     } else if (!isPersonEditAllowed(person.getId())) {
       throw new RuntimeException("Person Editing Not Allowed");
     }
+
+    myUserService.getCurrentLoggedInUser()
+      .getJamatkhanas()
+      .stream()
+      .filter(jk -> jk.getName().equals(person.getJamatkhana().getName()))
+      .findAny().orElseThrow(() -> new RuntimeException("Invalid JK Selected !!"));
+
     return super.save(person);
   }
 
