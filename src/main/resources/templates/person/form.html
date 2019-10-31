@@ -62,7 +62,7 @@
         <div class="form-group">
           <label for="dateOfBirth">Date Of Birth</label>
           <input type="date" required="true" class="form-control" th:field="*{dateOfBirth}"
-                 id="dateOfBirth"/>
+                 id="dateOfBirth" th:attr="max=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"/>
           <p class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
              th:errors="*{dateOfBirth}"></p>
         </div>
