@@ -207,6 +207,7 @@
       } else {
         $("#otherDisabilitySpan").hide();
         $('#otherDisabilitySpan').removeAttr('required');
+        $('#otherDisability').val('');
       }
     });
   });
@@ -224,6 +225,7 @@
       } else {
         $("#HF-OTHER").hide();
         $('#HF-OTHER').removeAttr('required');
+        $('#otherMedicalFacilityAccessed').val('');
       }
     });
 
@@ -235,6 +237,12 @@
         $('#mca').show();
       } else {
         $('#mca').hide();
+        $("#mca > div > label > input").each(function(hosp, index) {
+          $(index).attr('checked', false);
+        });
+        $("#HF-OTHER").hide();
+        $('#HF-OTHER').removeAttr('required');
+        $('#otherMedicalFacilityAccessed').val('');
       }
     });
 
@@ -245,6 +253,9 @@
         $('#hic').show();
       } else {
         $('#hic').hide();
+        $("#hic > div > label > input").each(function(hosp, index) {
+          $(index).attr('checked', false);
+        });
       }
     });
 
