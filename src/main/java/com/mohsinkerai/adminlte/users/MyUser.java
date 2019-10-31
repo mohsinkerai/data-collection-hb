@@ -40,7 +40,7 @@ public class MyUser extends BaseEntity implements UserDetails {
   @JoinColumn(name = "jamatkhana_id")
   private Jamatkhana jamatkhana;
 
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
     name = "my_user_jamatkhana",
     joinColumns = @JoinColumn(name = "jamatkhana_id"),
