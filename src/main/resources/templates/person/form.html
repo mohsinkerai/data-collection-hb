@@ -98,13 +98,14 @@
           </select>
           <p class="text-danger" th:if="${#fields.hasErrors('visitedDoctorForCheckup')}"
              th:errors="*{visitedDoctorForCheckup}"></p>
+          <p class="text-danger" id="healthFacilitiesRequiredError" hidden="true">Health Facilities Should be Selected Below Before Moving Forward</p>
         </div>
 
         <div class="form-group" id="mca" th:hidden="${data.visitedDoctorForCheckup}==0">
           <label>If yes, type of facility accessed? (Multiple Selection)</label>
           <div class="checkbox" th:each="hf : ${healthFacilities}">
             <label th:for="${hf.name}">
-              <input th:id="${'hf'+hf.name}" type="checkbox" th:checked="${#sets.contains(data.healthFacilities,hf)}" name="healthFacilities" th:value="${hf.id}">
+              <input th:id="${'hf'+hf.name}" th:classappend="${data.visitedDoctorForCheckup}==1? 'visitDoctorRequired': ''" type="checkbox" th:checked="${#sets.contains(data.healthFacilities,hf)}" name="healthFacilities" th:value="${hf.id}">
               <span th:text="${hf.name}"></span>
             </label>
           </div>
@@ -135,15 +136,16 @@
           </select>
           <p class="text-danger" th:if="${#fields.hasErrors('insuranceCoverage')}"
              th:errors="*{insuranceCoverage}"></p>
+          <p class="text-danger" id="insuranceRequiredError" hidden="true">Self or Employer Insurance Should be Selected Below Before Moving Forward</p>
         </div>
         <div class="form-group" id="hic" th:hidden="${data.insuranceCoverage}==0">
           <label>Insurance Coverage Details</label>
           <div class="checkbox">
-            <label for="selfInsurance"><input id="selfInsurance" type="checkbox" th:field="*{selfInsuranceCoverage}" /> Self Insurance Coverage
+            <label for="selfInsurance"><input id="selfInsurance" th:classappend="${data.insuranceCoverage}==1? 'insuranceRequired': ''" type="checkbox" th:field="*{selfInsuranceCoverage}" /> Self Insurance Coverage
             </label>
           </div>
           <div class="checkbox">
-            <label for="employerInsuranceCoverage"><input id="employerInsuranceCoverage" type="checkbox" th:field="*{employerInsuranceCoverage}" /> Employer Insurance Coverage
+            <label for="employerInsuranceCoverage"><input id="employerInsuranceCoverage" th:classappend="${data.insuranceCoverage}==1? 'insuranceRequired': ''"  type="checkbox" th:field="*{employerInsuranceCoverage}" /> Employer Insurance Coverage
             </label>
           </div>
         </div>
@@ -229,16 +231,20 @@
       }
     });
 
-
     $("#visitedDoctorForCheckup").on('change', function() {
       var e = this;
+      var className = 'visitDoctorRequired';
       // console.log($(e).val())
       if ($(e).val() == "1") {
         $('#mca').show();
+        $("#mca > div > label > input").each(function(hosp, index) {
+          $(index).addClass(className);
+        });
       } else {
         $('#mca').hide();
         $("#mca > div > label > input").each(function(hosp, index) {
           $(index).attr('checked', false);
+          $(index).removeClass(className);
         });
         $("#HF-OTHER").hide();
         $('#HF-OTHER').removeAttr('required');
@@ -248,15 +254,35 @@
 
     $("#insuranceCoverage").on('change', function() {
       var e = this;
+      var className = 'insuranceRequired';
       // console.log($(e).val())
       if ($(e).val() == "1") {
         $('#hic').show();
+        $("#hic > div > label > input").each(function(hosp, index) {
+          $(index).addClass(className);
+        });
       } else {
         $('#hic').hide();
         $("#hic > div > label > input").each(function(hosp, index) {
           $(index).attr('checked', false);
+          $(index).removeClass(className);
         });
       }
+    });
+
+    $('#myform').on('submit', function(e) {
+      $('#insuranceRequiredError').hide();
+      $('#healthFacilitiesRequiredError').hide();
+      if($(".visitDoctorRequired").length > 0 && $(".visitDoctorRequired:checkbox:checked").length < 1) {
+        $('#healthFacilitiesRequiredError').show();
+        return false;
+      }
+      if($(".insuranceRequired").length > 0 && $(".insuranceRequired:checkbox:checked").length < 1) {
+        $('#insuranceRequiredError').show();
+        return false;
+      }
+      return true;
+      // Return True if there is no element with this class, or if there are elemennts so at least onen element should be checked
     });
 
     $("#cnic").on('blur', function() {
