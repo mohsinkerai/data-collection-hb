@@ -133,6 +133,6 @@ public class PersonController extends SimpleBaseController<Person> {
 
   private PersonShortDto cnicExists(Person person) {
     List<PersonShortDto> persons = personService.findByCnic(person.getCnic());
-    return persons.stream().filter(p -> p.getId() != person.getId()).findFirst().orElse(null);
+    return persons.stream().filter(p -> !p.getId().equals(person.getId())).findFirst().orElse(null);
   }
 }

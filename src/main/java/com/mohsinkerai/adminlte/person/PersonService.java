@@ -84,7 +84,7 @@ public class PersonService extends SimpleBaseService<Person> {
       .stream()
       .map(GrantedAuthority::getAuthority)
       .map(String::toLowerCase)
-      .filter(s -> s.equals(role))
+      .filter(s -> s.equals(role.toLowerCase()))
       .findAny()
       .isPresent();
   }
