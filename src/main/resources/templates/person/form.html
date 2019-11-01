@@ -216,6 +216,13 @@
 
   $(document).ready(function() {
 
+    $('#cnic').mask('00000-0000000-0', {placeholder: "_____-_______-_"});
+    $('#contactNumber').mask('000Z-0000000Z', {placeholder: "____-_______", translation: {
+        'Z': {
+          pattern: /[0-9]/, optional: true
+        }
+      }});
+
     if($('#hfOthers').is(':checked')) {
       $("#HF-OTHER").show();
     }
