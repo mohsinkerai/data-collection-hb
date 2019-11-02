@@ -29,6 +29,9 @@ public class Person extends BaseEntity {
   private String name;
   private String cnic;
   private String gender;
+
+  @DateTimeFormat(pattern = "dd/MM/yyyy")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ProjectConstant.DATE_FORMAT)
   private Date dateOfBirth;
   private String residentialAddress;
   private String contactNumber;
