@@ -31,8 +31,7 @@ public class Person extends BaseEntity {
   private String gender;
 
   @DateTimeFormat(pattern = "dd/MM/yyyy")
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ProjectConstant.DATE_FORMAT)
-  private Date dateOfBirth;
+  private LocalDate dateOfBirth;
   private String residentialAddress;
   private String contactNumber;
   private int houseHoldMembersCount;

@@ -63,7 +63,7 @@
         <div class="form-group">
           <label for="dateOfBirth">Date Of Birth</label>
           <input type="text" required="true" class="form-control" th:field="*{dateOfBirth}"
-                 id="dateOfBirth" placeholder="01/01/1980"/>
+                 id="dateOfBirth" placeholder="dd/mm/yyyy"/>
           <p class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
              th:errors="*{dateOfBirth}"></p>
         </div>
