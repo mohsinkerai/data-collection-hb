@@ -279,21 +279,28 @@
       }
     });
 
+    var date = new Date();
+
     $("#dateOfBirth").datepicker({
       format: "dd/mm/yyyy",
       startView: 3,
-      todayHighlight: true
+      todayHighlight: true,
+      endDate: "0d",
+      startDate: '-120y'
     });
 
     $('#myform').on('submit', function(e) {
+      $('#submit').attr('disabled', true);
       $('#insuranceRequiredError').hide();
       $('#healthFacilitiesRequiredError').hide();
       if($(".visitDoctorRequired").length > 0 && $(".visitDoctorRequired:checkbox:checked").length < 1) {
         $('#healthFacilitiesRequiredError').show();
+        $('#submit').attr('disabled', false);
         return false;
       }
       if($(".insuranceRequired").length > 0 && $(".insuranceRequired:checkbox:checked").length < 1) {
         $('#insuranceRequiredError').show();
+        $('#submit').attr('disabled', false);
         return false;
       }
       return true;
