@@ -90,6 +90,32 @@ public class ReportController {
     return new HttpEntity<byte[]>(bytes, headers);
   }
 
+  @GetMapping("forms/by-username/excel")
+  public HttpEntity<byte[]> getFormsFilledByUsernameInExcel(UsernameAndDateDto usernameAndDateDto, Model model)
+    throws JRException {
+    LocalDate fromDate = usernameAndDateDto.getFromDate();
+    LocalDate toDate = usernameAndDateDto.getToDate();
+    String username = usernameAndDateDto.getUsername();
+
+    List<Person> persons = personService
+      .findByCreatedByAndCreatedOn(username, fromDate, toDate);
+    log.info("Got DTO {}, persons {}", usernameAndDateDto, persons);
+
+    ImmutableMap<String, Object> params = ImmutableMap.of(
+      "REPORT_NAME", "Entries by " + username,
+      "FROM_DATE", Date.valueOf(fromDate),
+      "TO_DATE", Date.valueOf(toDate));
+
+    // Return Report Here
+    byte[] bytes = personListReportGenerator.generateXLSXReport(persons, Maps.newHashMap(params));
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+    headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + "persons-by-username-on-time" + ".xlsx");
+
+    return new HttpEntity<byte[]>(bytes, headers);
+  }
+
   @GetMapping("forms/by-jamatkhana")
   public String findFormsFilledByJamatkhana(Model model) {
     JamatkhanaAndDateDto dto = new JamatkhanaAndDateDto(null, LocalDate.now(), LocalDate.now());
@@ -171,6 +197,35 @@ public class ReportController {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_PDF);
     headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + "persons-by-jamatkhana-on-time" + ".pdf");
+
+    return new HttpEntity<byte[]>(bytes, headers);
+  }
+
+  @GetMapping("forms/by-jamatkhana-list/excel")
+  public HttpEntity<byte[]> getFormsFilledByJamatkhanaListExcel(JamatkhanaAndDateDto jamatkhanaAndDateDto, Model model)
+    throws JRException {
+    LocalDate fromDate = jamatkhanaAndDateDto.getFromDate();
+    LocalDate toDate = jamatkhanaAndDateDto.getToDate();
+    Jamatkhana jamatkhana = jamatkhanaAndDateDto.getJamatkhana();
+
+    if (!isJkAllowed(jamatkhana)) {
+      throw new RuntimeException("Jamatkhana you are tring to search is not allowed");
+    }
+
+    List<Person> persons = personService.findByJamatkhanaAndCreatedDateBetween(jamatkhana, fromDate, toDate);
+    log.info("Got DTO {}, persons {}", jamatkhanaAndDateDto, persons);
+
+    ImmutableMap<String, Object> params = ImmutableMap.of(
+      "REPORT_NAME", "Persons in " + jamatkhana,
+      "FROM_DATE", Date.valueOf(fromDate),
+      "TO_DATE", Date.valueOf(toDate));
+
+    // Return Report Here
+    byte[] bytes = personListReportGenerator.generateXLSXReport(persons, Maps.newHashMap(params));
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+    headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + "persons-by-jamatkhana-on-time" + ".xlsx");
 
     return new HttpEntity<byte[]>(bytes, headers);
   }

@@ -30,4 +30,9 @@ public abstract class AbstractReportGenerator {
     List<JasperPrint> jasperPrints = JasperReportUtils.generateJasperPrints(jasperReport, data, params);
     return JasperReportUtils.generatePDFReport(jasperPrints);
   }
+
+  public byte[] generateXLSXReport(Collection<?> data, Map<String, Object> params) throws JRException {
+    List<JasperPrint> jasperPrints = JasperReportUtils.generateJasperPrints(jasperReport, data, params);
+    return JasperReportUtils.generateExcelReport(jasperPrints);
+  }
 }
