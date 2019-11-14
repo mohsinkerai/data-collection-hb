@@ -34,7 +34,7 @@
 
         <div class="form-group">
           <label for="cnic">CNIC</label>
-          <input type="text" required="true" class="form-control" th:field="*{cnic}" pattern="^(\d){5}-\d{7}-\d{1}$" placeholder="12345-1234567-1"
+          <input type="text" required="true" class="form-control" th:field="*{cnic}" pattern="(^\d{5}-\d{7}-\d{1}$)|(^o[a-zA-Z0-9-]{0,17}$)" placeholder="12345-1234567-1"
                  id="cnic" title="This is an error message" data-error="CNIC should be of format 12345-1234567-1"/>
           <p class="text-danger" th:if="${#fields.hasErrors('cnic')}"
              th:errors="*{cnic}"></p>
@@ -217,7 +217,21 @@
 
   $(document).ready(function() {
 
-    $('#cnic').mask('00000-0000000-0', {placeholder: "_____-_______-_"});
+    var cnicMaskOptions = {
+      placeholder: "_____-_______-_",
+      onKeyPress: function(cep, e, field, options) {
+        var masks = ['Z00000-0000000-0', 'oAAAAAAAAAAAAAA'];
+        var toApplyMask = cep.startsWith("o") ? masks[1] : masks[0];
+        $("#cnic").mask(toApplyMask, cnicMaskOptions);
+      },
+      translation: {
+        'Z': {
+          pattern: /[o]/, optional: true
+        }
+      }
+    };
+
+    $('#cnic').mask('Z00000-0000000-0', cnicMaskOptions);
     $('#contactNumber').mask('000Z-0000000Z', {placeholder: "____-_______", translation: {
         'Z': {
           pattern: /[0-9]/, optional: true

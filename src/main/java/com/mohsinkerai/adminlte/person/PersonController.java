@@ -126,7 +126,7 @@ public class PersonController extends SimpleBaseController<Person> {
     if (personExist != null || bindingResult.hasErrors()) {
       model.addAttribute("data", person);
       if (personExist != null) {
-        model.addAttribute("cnicError", "CNIC Already Exist with JK Name " + personExist.getJamatkhana().getName() + " and Person Name " + personExist.getPersonName());
+        model.addAttribute("cnicError", "CNIC Already Exist with JK Name " + personExist.getJamatkhana().getName() + " and Person Name " + personExist.getPersonName() + " and form No " + personExist.getId());
       }
       model.addAttribute("org.springframework.validation.BindingResult.data", bindingResult);
       model.addAttribute("urlPath", urlPath());
