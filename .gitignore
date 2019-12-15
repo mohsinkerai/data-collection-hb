@@ -81,3 +81,5 @@ target/
 deploy.sh
 .DS_Store
 logs
+src/main/resources/users.csv
+src/main/resources/users2.csv
