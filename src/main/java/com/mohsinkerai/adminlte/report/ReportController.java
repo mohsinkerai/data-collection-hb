@@ -10,6 +10,7 @@ import com.mohsinkerai.adminlte.report.dto.JamatkhanaSummaryDto;
 import com.mohsinkerai.adminlte.report.dto.UsernameAndDateDto;
 import com.mohsinkerai.adminlte.report.generator.JamatkhanaRegistrationReportGenerator;
 import com.mohsinkerai.adminlte.report.generator.PersonListReportGenerator;
+import com.mohsinkerai.adminlte.report.validator.ReportValidator;
 import com.mohsinkerai.adminlte.users.MyUser;
 import com.mohsinkerai.adminlte.users.MyUserService;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,7 @@ public class ReportController {
   private final PersonService personService;
   private final PersonListReportGenerator personListReportGenerator;
   private final JamatkhanaRegistrationReportGenerator jamatkhanaRegistrationReportGenerator;
+  private final ReportValidator reportValidator;
 
   @GetMapping("forms/by-username")
   public String findFormsFilledByUsername(Model model) {
@@ -136,7 +138,7 @@ public class ReportController {
     LocalDate toDate = jamatkhanaAndDateDto.getToDate();
     Jamatkhana jamatkhana = jamatkhanaAndDateDto.getJamatkhana();
 
-    if (!isJkAllowed(jamatkhana)) {
+    if (!reportValidator.isJkAllowed(jamatkhana)) {
       throw new RuntimeException("Jamatkhana you are tring to search is not allowed");
     }
 
@@ -179,7 +181,7 @@ public class ReportController {
     LocalDate toDate = jamatkhanaAndDateDto.getToDate();
     Jamatkhana jamatkhana = jamatkhanaAndDateDto.getJamatkhana();
 
-    if (!isJkAllowed(jamatkhana)) {
+    if (!reportValidator.isJkAllowed(jamatkhana)) {
       throw new RuntimeException("Jamatkhana you are tring to search is not allowed");
     }
 
@@ -208,7 +210,7 @@ public class ReportController {
     LocalDate toDate = jamatkhanaAndDateDto.getToDate();
     Jamatkhana jamatkhana = jamatkhanaAndDateDto.getJamatkhana();
 
-    if (!isJkAllowed(jamatkhana)) {
+    if (!reportValidator.isJkAllowed(jamatkhana)) {
       throw new RuntimeException("Jamatkhana you are tring to search is not allowed");
     }
 
@@ -228,13 +230,5 @@ public class ReportController {
     headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + "persons-by-jamatkhana-on-time" + ".xlsx");
 
     return new HttpEntity<byte[]>(bytes, headers);
-  }
-
-  private boolean isJkAllowed(Jamatkhana jamatkhana) {
-    return userService.getCurrentLoggedInUser()
-      .getJamatkhanas().stream()
-      .filter(jk -> jk.getName().equals(jamatkhana.getName()))
-      .findAny()
-      .isPresent();
   }
 }
