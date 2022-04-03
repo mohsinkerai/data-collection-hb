@@ -40,7 +40,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.11</version>
+      <version>8.0.16</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -132,7 +132,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>24.0-jre</version>
+      <version>31.1-jre</version>
     </dependency>
     <dependency>
       <groupId>org.liquibase</groupId>
