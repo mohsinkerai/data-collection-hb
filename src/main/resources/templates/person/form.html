@@ -32,8 +32,18 @@
         <input type="hidden" th:field="*{uuid}"/>
 
 
+
         <div class="form-group">
-          <label for="cnic">CNIC</label>
+          <label for="receiptId">Receipt Id*</label>
+          <input type="number" required="true" class="form-control" th:field="*{receiptId}" min="0" max="60000"
+                 placeholder="Receipt Id" id="receiptId" data-error="Please enter the correct receipt number"/>
+          <p class="text-danger" th:if="${#fields.hasErrors('receiptId')}"
+             th:errors="*{receiptId}"></p>
+          <div class="help-block with-errors"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="cnic">CNIC*</label>
           <input type="text" required="true" class="form-control" th:field="*{cnic}" pattern="(^\d{5}-\d{7}-\d{1}$)|(^o[a-zA-Z0-9-]{0,17}$)" placeholder="12345-1234567-1"
                  id="cnic" title="This is an error message" data-error="CNIC should be of format 12345-1234567-1"/>
           <p class="text-danger" th:if="${#fields.hasErrors('cnic')}"
@@ -44,7 +54,7 @@
           <p class="text-danger" id="cnicErrorText" hidden="true"></p>
         </div>
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">Name*</label>
           <input type="text" required="true" class="form-control" th:field="*{name}" maxlength="30" minlength="3"
                  placeholder="Enter Name" id="name" data-error="Name should be between 4 and 30 characters."/>
           <p class="text-danger" th:if="${#fields.hasErrors('name')}"
@@ -304,7 +314,7 @@
     });
 
     $('#myform').on('submit', function(e) {
-      $('#submit').attr('disabled', true);
+      console.log("Submitted");
       $('#insuranceRequiredError').hide();
       $('#healthFacilitiesRequiredError').hide();
       if($(".visitDoctorRequired").length > 0 && $(".visitDoctorRequired:checkbox:checked").length < 1) {
@@ -320,6 +330,12 @@
       return true;
       // Return True if there is no element with this class, or if there are elemennts so at least onen element should be checked
     });
+
+    $("#btnSubmit").on('click', function (event) {
+         var el = $(this);
+         el.prop('disabled', true);
+         setTimeout(function(){el.prop('disabled', false); }, 3000);
+     });
 
     $("#cnic").on('blur', function() {
       var e = $(this);

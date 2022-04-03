@@ -36,6 +36,8 @@ public class Person extends BaseEntity {
   private String contactNumber;
   private int houseHoldMembersCount;
 
+  private long receiptId;
+
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
     name = "health_facility_accessed",

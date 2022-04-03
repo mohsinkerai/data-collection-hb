@@ -28,7 +28,7 @@
       </a>
       <ul class="treeview-menu">
         <li th:classappend="${#httpServletRequest.requestURI.startsWith('/lookup/disease')? 'active':''}"><a th:href="@{/lookup/disease}"><i class="fa fa-circle-o"></i> Disease</a></li>
-        <li th:classappend="${#httpServletRequest.requestURI.startsWith('/lookup/health-facility')? 'active':''}"><a th:href="@{/lookup/disease}"><i class="fa fa-circle-o"></i> Health Facility</a></li>
+        <li th:classappend="${#httpServletRequest.requestURI.startsWith('/lookup/health-facility')? 'active':''}"><a th:href="@{/lookup/health-facility}"><i class="fa fa-circle-o"></i> Health Facility</a></li>
       </ul>
     </li>
     <li class="treeview" th:classappend="${#httpServletRequest.requestURI.startsWith('/customers')? 'active':''}"  sec:authorize="hasAuthority('LEAD')">

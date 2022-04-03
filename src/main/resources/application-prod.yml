@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: akesp-fee-details
+  datasource:
+    db: matrimonial_swb
+    host: localhost
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    port: 3306
+    #    url: jdbc:mysql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.db}?createDatabaseIfNotExist=true
+#    port: 1433
+#    driver-class-name: org.postgresql.Driver
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    url: ${database.url}
+    url: jdbc:sqlserver://${spring.datasource.host}:${spring.datasource.port};databaseName=${spring.datasource.db};createDatabaseIfNotExist=true;useUnicod=true
+    username: sa
+    password: Password
+    tomcat:
+      initial-size: 6
+      max-wait: 20000
+      max-active: 100
+      max-idle: 10
+      min-idle: 4
+      validation-query-timeout: 2
+      initialize: false
+  jpa:
+    hibernate.ddl-auto: validate
+    generate-ddl: true
+#    database: MYSQL
+    show: true
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+#        dialect: org.hibernate.dialect.PostgreSQL92Dialect
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+  thymeleaf:
+    cache: true
+    check-template-location: true
+    prefix: classpath:/templates/
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: embedded
+  liquibase:
+    change-log: classpath:db/liquibase-changelog.xml
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+#        secure: true
+      timeout: 120m
+  tomcat:
+    accesslog:
+      max-logs: 10
+      enabled: false
+      directory: /var/log
+    basedir: /var/log
+logging:
+  level:
+    org:
+      hibernate:
+        type: INFO
+  file:
+    name: /var/log/swb.log
+    path: /var/log
+    max-history: 3
+    max-size: 1MB
