@@ -44,25 +44,43 @@
     </createTable>
   </changeSet>
   <changeSet id="my-users-02" author="mohsin.kerai">
+    <sql dbms="mssql">
+      SET IDENTITY_INSERT my_user ON;
+    </sql>
     <createIndex tableName="my_user" indexName="users_username_index">
       <column name="username" />
     </createIndex>
+    <sql dbms="mssql">
+      SET IDENTITY_INSERT my_user OFF;
+    </sql>
   </changeSet>
   <changeSet id="my-users-03" author="mohsin.kerai">
+    <sql dbms="mssql">
+      SET IDENTITY_INSERT my_user ON;
+    </sql>
     <insert tableName="my_user">
       <column name="id" value="1" />
       <column name="username" value="admin"/>
       <column name="password" value="$2a$10$yBKOgfPBnGEMKJW4jrANJurplYRnjCQjyoT8S4fbNkNu6GO254Y3a"/>
       <column name="enabled" valueBoolean="true"/>
     </insert>
+    <sql dbms="mssql">
+      SET IDENTITY_INSERT my_user OFF;
+    </sql>
   </changeSet>
   <changeSet id="my-users-04" author="mohsin.kerai">
+    <sql dbms="mssql">
+      SET IDENTITY_INSERT my_user ON;
+    </sql>
     <insert tableName="my_user">
       <column name="id" value="2" />
       <column name="username" value="user"/>
       <column name="password" value="$2a$10$v9xaftczYUk0bfhdCGxhW.0cDFHG2n5yAMbnUNrvMtkMQwL4CNMHq"/>
       <column name="enabled" valueBoolean="true"/>
     </insert>
+    <sql dbms="mssql">
+      SET IDENTITY_INSERT my_user OFF;
+    </sql>
   </changeSet>
   <changeSet id="my-users-05" author="mohsin.kerai">
     <addColumn tableName="my_user">

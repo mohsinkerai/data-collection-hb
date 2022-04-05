@@ -2,13 +2,15 @@ spring:
   application:
     name: hbp-card-portal
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    db: data_collection_hb3
+    db: hbp-card-portal
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     host: localhost
-    port: 3306
-    url: jdbc:mysql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.db}?createDatabaseIfNotExist=true
-    username: root
-    password: password
+    port: 1433
+#    url: jdbc:mysql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.db}?createDatabaseIfNotExist=true
+    url: jdbc:sqlserver://${spring.datasource.host}:${spring.datasource.port};databaseName=${spring.datasource.db};createDatabaseIfNotExist=true;useUnicod=true
+#    username: root
+    username: sa
+    password: Password1
     tomcat:
       initial-size: 6
       max-wait: 20000
@@ -20,7 +22,7 @@ spring:
   jpa:
     hibernate.ddl-auto: validate
     generate-ddl: true
-    database: MYSQL
+    database: SQL_SERVER
     show: true
   thymeleaf:
     cache: false
@@ -28,8 +30,8 @@ spring:
     prefix: file:./src/main/resources/templates/
   session:
     store-type: jdbc
-    jdbc:
-      initialize-schema: embedded
+#    jdbc:
+#      initialize-schema: embedded
   liquibase:
     change-log: classpath:db/liquibase-changelog.xml
 server:
@@ -47,7 +49,7 @@ server:
     basedir: logs
 logging:
   file: logs/app.log
-  file.name: application-spring.log
+  file.name: logs/application-spring.log
   file.path: /var/log
-  file.max-history: 10
+  file.max-history: 3
   file.max-size: 1MB

@@ -54,5 +54,8 @@
       <column name="my_user_id" value="2" />
       <column name="my_authority_id" value="2" />
     </insert>
+    <sql dbms="mssql">
+      SET IDENTITY_INSERT my_user_authority OFF;
+    </sql>
   </changeSet>
 </databaseChangeLog>
