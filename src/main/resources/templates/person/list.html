@@ -26,6 +26,7 @@
       <table class="table table-striped">
         <tr>
           <th>ID</th>
+          <th>Receipt Id</th>
           <th>Name</th>
           <th>CNIC</th>
           <th>Gender</th>
@@ -34,6 +35,7 @@
         </tr>
         <tr th:each="row : ${list}">
           <td th:text="${row.id}"></td>
+          <td th:text="${row.receiptId}"></td>
           <td th:text="${row.name}"></td>
           <td th:text="${row.cnic}"></td>
           <td th:text="${row.gender}"></td>
