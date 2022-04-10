@@ -80,12 +80,6 @@ public class PersonController extends SimpleBaseController<Person> {
 
   @Override
   @PreAuthorize("hasAuthority('ADMIN')")
-  public String delete(@PathVariable Long id) {
-    return super.delete(id);
-  }
-
-  @Override
-  @PreAuthorize("hasAuthority('ADMIN')")
   public String list(@PathVariable Integer pageNumber, Model model) {
     return super.list(pageNumber, model);
   }

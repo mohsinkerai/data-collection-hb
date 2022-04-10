@@ -98,7 +98,7 @@ public abstract class BaseController<E extends BaseEntity, I extends Serializabl
   }
 
   @PreAuthorize("hasAuthority('ADMIN')")
-  @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+  @RequestMapping(value = "delete/{id}", method = {RequestMethod.DELETE, RequestMethod.POST})
   public String delete(@PathVariable I id) {
     log.info("deleting form method {} urlPath {}", id, urlPath());
     baseService.delete(id);
