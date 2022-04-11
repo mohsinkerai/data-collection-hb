@@ -50,7 +50,7 @@
         </tr>
       </table>
     </div>
-    <div class="box-footer clearfix">
+    <div class="box-footer clearfix" th:unless="${navPath}">
       <ul class="pagination pagination-sm no-margin pull-right">
         <li><a th:href="@{/{urlPath}/{page}(urlPath=${urlPath},page=1)}">First</a></li>
         <li th:each="p : ${#numbers.sequence(1, endIndex/beginIndex)}"

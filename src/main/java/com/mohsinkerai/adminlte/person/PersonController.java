@@ -95,6 +95,7 @@ public class PersonController extends SimpleBaseController<Person> {
     int end = Math.min(begin + PAGE_SIZE, totalPages == 0 ? 1 : totalPages);
 
     model.addAttribute("urlPath", urlPath());
+    model.addAttribute("navPath", urlPath()+"/jk");
 
     model.addAttribute("list", list);
     model.addAttribute("beginIndex", begin);

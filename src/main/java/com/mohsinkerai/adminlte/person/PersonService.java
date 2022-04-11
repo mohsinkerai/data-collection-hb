@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.List;
@@ -53,7 +54,7 @@ public class PersonService extends SimpleBaseService<Person> {
     Person person = findOne(personId)
       .orElseThrow(() -> new RuntimeException(String.format("Id %d Doesn't Exist", personId)));
     MyUser currentLoggedInUser = myUserService.getCurrentLoggedInUser();
-    return ChronoUnit.HOURS.between(person.getCreatedDate(), LocalDate.now()) < 24 || hasRole(currentLoggedInUser, "ADMIN") || hasRole(currentLoggedInUser, "LEAD");
+    return ChronoUnit.HOURS.between(person.getCreatedOn(), LocalDateTime.now()) < 24 || hasRole(currentLoggedInUser, "ADMIN") || hasRole(currentLoggedInUser, "LEAD");
   }
 
   public List<Person> findByJamatkhanaIn(Collection<Jamatkhana> jamatkhanas) {
