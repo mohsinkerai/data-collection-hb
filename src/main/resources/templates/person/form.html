@@ -31,11 +31,9 @@
         <input type="hidden" th:field="*{createdDate}"/>
         <input type="hidden" th:field="*{uuid}"/>
 
-
-
         <div class="form-group">
           <label for="receiptId">Receipt Id*</label>
-          <input type="number" required="true" class="form-control" th:field="*{receiptId}" min="0" max="60000"
+          <input type="number" required="true" class="form-control" th:field="*{receiptId}" min="1" max="60000"
                  placeholder="Receipt Id" id="receiptId" data-error="Please enter the correct receipt number"/>
           <p class="text-danger" th:if="${#fields.hasErrors('receiptId')}"
              th:errors="*{receiptId}"></p>
