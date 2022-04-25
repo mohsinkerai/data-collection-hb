@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,6 +68,10 @@ public class PersonService extends SimpleBaseService<Person> {
 
   public List<JamatkhanaSummaryDto> findBySummaryPerJamatkhanaBetween(LocalDate fromCreatedDate, LocalDate toCreatedDate) {
     return personRepository.findBySummaryPerJamatkhanaBetween(fromCreatedDate, toCreatedDate);
+  }
+
+  public List<JamatkhanaSummaryDto> findBySummaryPerAssignedJamatkhanaBetween(Collection<Jamatkhana> jamatkhanas, LocalDate fromCreatedDate, LocalDate toCreatedDate) {
+    return personRepository.findBySummaryPerAssignedJamatkhanaBetween(new ArrayList<>(jamatkhanas), fromCreatedDate, toCreatedDate);
   }
 
   public List<Person> findByJamatkhanaAndCreatedDateBetween(Jamatkhana jamatkhana, LocalDate fromCreatedDate, LocalDate toCreatedDate) {

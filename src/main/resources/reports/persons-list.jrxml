@@ -160,7 +160,7 @@
 	<detail>
 		<band height="16" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField pattern="#0,000.###;(#0,000.###-)">
+			<textField pattern="#0000.###;(#0000.###-)">
 				<reportElement x="0" y="0" width="30" height="15" uuid="ecc07d4e-43ee-4f99-815d-fa0419cfc8f8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b58f2b9-bd6d-4c9e-9e3d-82b40592c839"/>
 				</reportElement>
@@ -225,7 +225,7 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{jamatkhana}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#0,000.###;(#0,000.###-)">
+			<textField pattern="#00000.###;(#00000.###-)">
 				<reportElement x="30" y="0" width="50" height="15" uuid="a4bb22ea-7dc3-45f9-b9d4-5bf41eb627f2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b58f2b9-bd6d-4c9e-9e3d-82b40592c839"/>
 				</reportElement>

@@ -106,6 +106,13 @@ public class PersonController extends SimpleBaseController<Person> {
   }
 
   @Override
+  @PreAuthorize("hasAuthority('USER')")
+  public String add(Model model) {
+    return super.add(model);
+  }
+
+  @Override
+  @PreAuthorize("hasAuthority('USER')")
   public String edit(@PathVariable Long id, Model model) {
     boolean canEditPerson = personService.isPersonEditAllowed(id);
     if (!canEditPerson) {
@@ -115,6 +122,7 @@ public class PersonController extends SimpleBaseController<Person> {
   }
 
   @Override
+  @PreAuthorize("hasAuthority('USER')")
   public String save(Person person, BindingResult bindingResult, Model model,
                      RedirectAttributes ra) {
     PersonShortDto personExist = cnicExists(person);
